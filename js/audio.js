@@ -1,61 +1,111 @@
-// ① 创建音频上下文 AudioContext
+// 全局音频变量
 let audioCtx = null;
-// 初始化函数（浏览器规则：必须用户点击后才能启动音频）
+let currentOscillator = null; // 记录当前播放声音，实现点新停旧
+let analyser = null;
+let canvas, canvasCtx;
+let animationId = null;
+
+// 初始化音频上下文（兼容iOS）
 function initAudioCtx() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 2048;
+    }
+    // iOS 唤醒音频
+    if (audioCtx.state === "suspended") {
+        audioCtx.resume();
+    }
 }
 
-// ② 核心播放函数 playPattern，接收纹样名称 type
+// 初始化画布
+function initCanvas() {
+    canvas = document.getElementById("wave");
+    canvasCtx = canvas.getContext("2d");
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener("resize", resize);
+}
+
+// 绘制波形
+function drawWaveform() {
+    animationId = requestAnimationFrame(drawWaveform);
+    const bufferLen = analyser.frequencyBinCount;
+    const dataArr = new Uint8Array(bufferLen);
+    analyser.getByteTimeDomainData(dataArr);
+
+    // 清空画布
+    canvasCtx.fillStyle = "#f7f7f7";
+    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = "#2563eb";
+    canvasCtx.beginPath();
+
+    let x = 0;
+    const sliceWidth = canvas.width / bufferLen;
+    for (let i = 0; i < bufferLen; i++) {
+        const v = dataArr[i] / 128.0;
+        const y = v * canvas.height / 2;
+        if (i === 0) canvasCtx.moveTo(x, y);
+        else canvasCtx.lineTo(x, y);
+        x += sliceWidth;
+    }
+    canvasCtx.lineTo(canvas.width, canvas.height / 2);
+    canvasCtx.stroke();
+}
+
+// 核心播放函数
 function playPattern(type) {
-  // 先初始化音频环境
-  initAudioCtx();
+    // 1. 初始化音频+画布
+    initAudioCtx();
+    if (!canvas) initCanvas();
+    if (!animationId) drawWaveform();
 
-  // ③ 创建声音发生器 Oscillator + 音量节点（防爆音）
-  const oscillator = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
+    // 2. 播放冲突：停止上一个声音
+    if (currentOscillator) {
+        try {
+            currentOscillator.stop();
+        } catch (err) {}
+        currentOscillator = null;
+    }
 
-  // 音量初始值，0.2不会刺耳
-  gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-  // 声音结束平滑衰减，避免咔哒爆音
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+    // 3. 五种纹样音色配置
+    const soundConfig = {
+        "羊角": { freq: 180, wave: "triangle" },
+        "火纹": { freq: 900, wave: "sawtooth" },
+        "云纹": { freq: 500, wave: "sine" },
+        "几何": { freq: 650, wave: "square" },
+        "植物": { freq: 300, wave: "sine" }
+    };
+    const cfg = soundConfig[type];
 
-  // ④ 五种纹样匹配参数：频率、波形（音色）
-  switch (type) {
-    case "羊角":
-      oscillator.type = "triangle"; // triangle厚重低频
-      oscillator.frequency.value = 180;
-      break;
-    case "火纹":
-      oscillator.type = "sawtooth"; // sawtooth尖锐明亮高频
-      oscillator.frequency.value = 900;
-      break;
-    case "云纹":
-      oscillator.type = "sine"; // sine空灵顺滑
-      oscillator.frequency.value = 500;
-      break;
-    case "几何":
-      oscillator.type = "square"; // square短促硬朗
-      oscillator.frequency.value = 650;
-      break;
-    case "植物":
-      oscillator.type = "sine"; // sine柔和
-      oscillator.frequency.value = 300;
-      break;
-    default:
-      oscillator.type = "sine";
-      oscillator.frequency.value = 400;
-  }
+    // 创建发声器、音量控制器
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = cfg.wave;
+    osc.frequency.value = cfg.freq;
 
-  // 音频链路：发声器 → 音量控制器 → 电脑扬声器
-  oscillator.connect(gain);
-  gain.connect(audioCtx.destination);
+    // 4. Attack + Decay 音量包络（渐起渐消）
+    const now = audioCtx.currentTime;
+    const attack = 0.15;
+    const decay = 0.35;
+    gain.gain.setValueAtTime(0, now);
+    gain.gain.linearRampToValueAtTime(0.2, now + attack);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + attack + decay);
 
-  // 播放0.4秒后停止
-  oscillator.start(audioCtx.currentTime);
-  oscillator.stop(audioCtx.currentTime + 0.4);
+    // 音频链路：振荡器 → 音量 → 波形分析 → 扬声器
+    osc.connect(gain);
+    gain.connect(analyser);
+    analyser.connect(audioCtx.destination);
+
+    // 播放与停止
+    osc.start(now);
+    osc.stop(now + attack + decay);
+    currentOscillator = osc;
 }
 
-// 把函数挂载到window，html按钮可以直接调用
+// 暴露给html按钮调用
 window.playPattern = playPattern;

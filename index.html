@@ -1,11 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!-- iOS移动端适配必须加 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纹样音频合成器</title>
+    <style>
+        button {
+            margin: 8px;
+            padding: 10px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #wave {
+            margin-top: 20px;
+            border: 1px solid #999;
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
+        }
+    </style>
+</head>
 <body>
-  <!-- 五种纹样按钮，点击触发对应声音 -->
-  <button onclick="playPattern('羊角')">羊角纹</button>
-  <button onclick="playPattern('火纹')">火纹</button>
-  <button onclick="playPattern('云纹')">云纹</button>
-  <button onclick="playPattern('几何')">几何纹</button>
-  <button onclick="playPattern('植物')">植物纹</button>
+    <!-- 五个纹样按钮 -->
+    <div>
+        <button onclick="playPattern('羊角')">羊角纹</button>
+        <button onclick="playPattern('火纹')">火纹</button>
+        <button onclick="playPattern('云纹')">云纹</button>
+        <button onclick="playPattern('几何')">几何纹</button>
+        <button onclick="playPattern('植物')">植物纹</button>
+    </div>
 
-  <!-- 引入音频脚本，必须写在body末尾 -->
-  <script src="./js/audio.js"></script>
+    <!-- 波形画布 -->
+    <canvas id="wave"></canvas>
+
+    <!-- 引入js，顺序不能乱 -->
+    <script src="./js/audio.js"></script>
+    <script src="./js/app.js"></script>
 </body>
+</html>
