@@ -1,0 +1,809 @@
+:root {
+    --navy: #073b7d;
+    --navy-deep: #062c62;
+    --blue-text: #1e4f82;
+    --paper: #fffcf6;
+    --beige: #e8d4bb;
+    --gold: #d6a44b;
+}
+html {
+    transform: scale(1.25);
+    transform-origin: top left;
+    width: 80%;
+    height: 80%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    color: var(--blue-text);
+    background: var(--paper);
+    font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+.wrap-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 6%;
+    color: #ffffff;
+    background: var(--navy-deep);
+}
+
+.site-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.brand-badge,
+.title-ornament {
+    display: inline-grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    color: transparent;
+    font-size: 0;
+    border: none;
+    border-radius: 0;
+    background-image: url("../assets/images/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.main-nav {
+    display: flex;
+    gap: clamp(19px, 2.7vw, 44px);
+    margin-left: auto;
+    font-size: 13px;
+}
+
+.main-nav a {
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: #f2c36d;
+}
+
+.menu-button {
+    display: none;
+    margin-left: auto;
+    color: #ffffff;
+    font-size: 24px;
+    background: transparent;
+    border: 0;
+}
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 1619 / 945;
+    min-height: 0;
+    padding: 40px 12%;
+    color: #ffffff;
+    background-color: #053b83;
+    background-image: url("../assets/images/bg/banner.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    width: 36%;
+    min-width: 260px;
+    text-align: left;
+}
+
+.hero-content h1 {
+    margin: 0 0 15px;
+    font-size: clamp(42px, 4.7vw, 70px);
+    font-weight: 500;
+    letter-spacing: 8px;
+}
+
+.hero-content p {
+    margin: 0;
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+.content-shell {
+    width: min(1160px, 88%);
+    margin: 0 auto;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.section-title h2 {
+    position: relative;
+    margin: 0;
+    color: var(--blue-text);
+    font-size: clamp(24px, 2.7vw, 36px);
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.section-title h2::after {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 7px auto 0;
+    content: "";
+    background: #1d4064;
+}
+
+.about-section {
+    padding: 58px 0 48px;
+}
+
+.section-subtitle {
+    margin: 40px 0 0px;
+    color: #6581a0;
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 0.82fr 1.55fr 0.82fr;
+    gap: 26px;
+    align-items: center;
+}
+
+.about-image {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 7px 14px rgba(42, 49, 61, 0.24);
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+}
+
+.about-text {
+    color: #245084;
+    font-size: 13px;
+    line-height: 1.85;
+}
+
+.about-text p {
+    margin: 0 0 10px;
+}
+
+.patterns-section {
+    padding: 46px 0 80px;
+}
+
+.pattern-group {
+    margin-top: 48px;
+}
+
+.pattern-group h3 {
+    margin: 0 0 16px;
+    color: #53779c;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.pattern-carousel {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    align-items: center;
+    gap: 12px;
+}
+
+.carousel-arrow {
+    padding: 0;
+    color: #3f75a8;
+    font-size: 37px;
+    line-height: 1;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.pattern-viewport {
+    overflow: hidden;
+    padding: 30px 0;
+}
+
+.pattern-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    transition: transform 0.35s ease;
+}
+
+.pattern-card {
+    flex: 0 0 180px;
+    height: 250px;
+    border-radius: 7px;
+    box-shadow: 0 6px 12px rgba(38, 42, 50, 0.26);
+    overflow: hidden;
+    transition: transform 0.28s ease;
+    z-index: 1;
+    margin-left: -45px;
+}
+.pattern-card:first-child {
+    margin-left: 0;
+}
+/* 最外侧：距离中心3格（新增最远一层） */
+.pattern-card.level-far2 {
+    transform: translateY(30px) scale(0.78);
+    /* z-index: 1; */
+}
+
+/* 距离中心2格 */
+.pattern-card.level-far1 {
+    transform: translateY(22px) scale(0.86);
+    /* z-index: 2; */
+}
+
+/* 距离中心1格（相邻） */
+.pattern-card.level-near {
+    transform: translateY(12px) scale(0.94);
+    /* z-index: 3; */
+}
+
+/* 当前选中中心卡片 */
+.pattern-card.level-active {
+    transform: translateY(0) scale(1);
+    z-index: 5;
+    flex-basis: 200px;
+    height: 300px;
+}
+.pattern-card:hover{
+    transform: scale(1.06) translateY(0) !important;
+    z-index: 10 !important;
+}
+.pattern-card img{
+    width:100%;
+    height:100%;
+}
+
+.taboo-section {
+    padding-bottom: 68px;
+}
+
+.taboo-title-shell {
+    padding: 54px 0 35px;
+}
+
+.taboo-copy {
+    padding: 37px 9%;
+    color: #ffffff;
+    background: #174b91;
+}
+
+.taboo-copy p {
+    width: min(1110px, 100%);
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 2;
+    letter-spacing: 0.4px;
+}
+
+.totem-row {
+    display: flex;
+    justify-content: center;
+    gap: clamp(45px, 12vw, 190px);
+    padding: 47px 20px 0;
+}
+
+.totem-row img {
+    width: clamp(130px, 16vw, 235px);
+    height: clamp(130px, 16vw, 235px);
+    object-fit: cover;
+    border-radius: 50%;
+    filter: drop-shadow(0 5px 4px rgba(81, 57, 27, 0.36));
+}
+
+.artisans-section {
+    padding: 58px 0 86px;
+}
+
+.artisan-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 116px;
+    max-width: 1010px;
+    margin: 48px auto 0;
+}
+
+.artisan-card {
+    overflow: hidden;
+    background: #174b91;
+    border-radius: 6px;
+    box-shadow: 0 6px 12px rgba(31, 43, 58, 0.24);
+    transition: transform .25s ease;
+}
+.artisan-card:hover{
+    transform: translateY(-6px);
+}
+
+.artisan-card img {
+    width: 100%;
+    aspect-ratio: 1.4;
+    object-fit: cover;
+}
+
+.artisan-card div {
+    min-height: 126px;
+    padding: 14px 17px 17px;
+    color: #ffffff;
+}
+
+.artisan-card h3 {
+    margin: 0 0 7px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.artisan-card p {
+    margin: 0;
+    color: #dbe7f6;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.craft-section {
+    padding: 54px 0 65px;
+}
+
+.craft-title-shell {
+    padding-bottom: 38px;
+}
+
+.craft-banner {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.craft-cards {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 26px;
+    width: min(720px, 86%);
+    margin: -70px auto 0;
+}
+.craft-card {
+    display: flex;
+    flex: 0 1 300px;
+    flex-direction: column;
+    color: #ffffff;
+    box-shadow: 0 6px 11px rgba(46, 39, 26, 0.27);
+    align-items: center;
+    padding: 64px 4px 0;
+}
+.card-up{
+    transform: translateY(-48px);
+}
+.card-down{
+    transform: translateY(0);
+}
+.craft-card p {
+    margin: 0;
+    padding: 60px 0;
+    font-size: 32px;
+    line-height: 1.65;
+    letter-spacing: 3px;
+    writing-mode: vertical-rl;
+    flex-grow:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.craft-card img {
+    width: 142px;
+    padding: 0;
+    object-fit: contain;
+    margin-top: auto;
+    margin-bottom: -20px;
+    display: block;
+    transform-origin: center bottom;
+}
+
+.craft-card-blue img {
+    transform: scale(1.15) translateX(0px) translateY(-17px);
+}
+.craft-card-gold img {
+    transform: scale(1.15) translateX(0px) translateY(-17px);
+}
+.craft-card-red img {
+    transform: scale(1.15) translateX(0px) translateY(-17px);
+}
+.craft-card-brown img {
+    transform: scale(1.15) translateX(0px) translateY(-17px);
+}
+
+.craft-card-blue {
+    background: #124684;
+}
+.craft-card-gold {
+    background: #d29819;
+}
+.craft-card-red {
+    background: #811419;
+}
+.craft-card-brown {
+    background: #b47b3a;
+}
+
+.site-footer {
+    display: grid;
+    /* 调整第三列宽度，拉开【快速链接】【订阅通讯】间距 */
+    grid-template-columns: 1.25fr 1fr 1fr 1fr;
+    gap: 36px;
+    padding: 45px 8%;
+    color: #ffffff;
+    background: #154a90;
+}
+.footer-col h3 {
+    margin: 0 0 15px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.footer-col p,
+.footer-col a {
+    display: block;
+    margin: 6px 0;
+    color: #d8e5f6;
+    font-size: 14px;
+    line-height: 1.65;
+}
+.subscribe-box{
+    display:flex;
+    margin-top:10px;
+}
+.subscribe-box input{
+    flex:1;
+    height:36px;
+    border:none;
+    padding:0 10px;
+    border-radius:4px 0 0 4px;
+    outline:none;
+}
+.send-btn{
+    width:44px;
+    background:#775c3b;
+    color:#fff;
+    border:none;
+    cursor:pointer;
+    border-radius:0 4px 4px 0;
+}
+
+/* =====联系我们 全局样式（媒体查询外面！）===== */
+.contact-row {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+    gap: 10px;
+}
+.contact-icon {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.bg-about {
+    width:100%;
+    height: 100%;
+    background-image: url("../assets/images/bg/bg_about.jpg");
+    background-position: center ;
+    background-size: contain;
+}
+.bg-patterns {
+    width:100%;
+    height: 100%;
+    background-image: url("../assets/images/bg/bg_pattern.jpg");
+    background-position: center ;
+    background-size: contain;
+}
+.bg-totem {
+    width:100%;
+    height: 100%;
+    background-image: url("../assets/images/bg/bg_totem.jpg");
+    background-position: center ;
+    background-size: contain;
+}
+.bg-artisan {
+    width:100%;
+    height: 100%;
+    background-image: url("../assets/images/bg/bg_artisan.jpg");
+    background-position: center ;
+    background-size: contain;
+}
+.bg-craft {
+    width:100%;
+    height: 100%;
+    background-image: url("../assets/images/bg/bg_craft.jpg");
+    background-position: center ;
+    background-size: contain;
+}
+
+/* =========移动端媒体查询========= */
+@media (max-width: 760px) {
+    .site-header {
+        height: 44px;
+        padding: 0 16px;
+    }
+    .site-brand {
+        font-size: 11px;
+    }
+    .brand-badge {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+    }
+    .menu-button {
+        display: block;
+    }
+    .main-nav {
+        position: absolute;
+        top: 44px;
+        right: 0;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        padding: 18px 8%;
+        background: var(--navy-deep);
+    }
+    .main-nav.is-open {
+        display: flex;
+    }
+    .hero-section {
+        min-height: 0;
+        padding: 26px 12%;
+        background-position: center;
+    }
+    .hero-content {
+        width: 42%;
+        min-width: 0;
+    }
+    .hero-content h1 {
+        margin-bottom: 8px;
+        font-size: 27px;
+        letter-spacing: 4px;
+    }
+    .hero-content p {
+        font-size: 8px;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+    .content-shell {
+        width: 92%;
+    }
+    .section-title {
+        gap: 8px;
+    }
+    .section-title h2 {
+        font-size: 17px;
+    }
+    .title-ornament {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+    }
+    .section-title h2::after {
+        height: 1px;
+        margin-top: 4px;
+    }
+    .about-section {
+        padding: 29px 0 24px;
+    }
+    .section-subtitle {
+        margin: 10px 0 15px;
+        font-size: 9px;
+    }
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .about-image-left{order:1;}
+    .about-text{order:2;}
+    .about-image-right{order:3;}
+    .about-text {
+        font-size: 12px;
+        line-height: 1.55;
+    }
+    .about-text p {
+        margin-bottom: 5px;
+    }
+    .about-image {
+        border-radius: 5px;
+    }
+    .patterns-section {
+        padding: 30px 0 40px;
+    }
+    .pattern-group {
+        margin-top: 34px;
+    }
+    .pattern-group h3 {
+        margin-bottom: 6px;
+        font-size: 10px;
+    }
+    .pattern-carousel {
+        grid-template-columns: 15px 1fr 15px;
+        gap: 3px;
+    }
+    .carousel-arrow {
+        font-size: 24px;
+    }
+    .pattern-viewport {
+        padding: 15px 0;
+    }
+    .pattern-card {
+        flex: 0 0 56px;
+        height: 70px;
+        margin-left: -12px;
+    }
+    .pattern-card.level-far {
+        transform: translateY(8px) scale(0.86);
+    }
+    .pattern-card.level-near {
+        transform: translateY(6px) scale(0.94);
+    }
+    .pattern-card.level-active {
+        flex-basis: 92px;
+        height: 118px;
+        transform: translateY(0) scale(1);
+    }
+    .taboo-section {
+        padding-bottom: 31px;
+    }
+    .taboo-title-shell {
+        padding: 27px 0 20px;
+    }
+    .taboo-copy {
+        padding: 19px 8%;
+    }
+    .taboo-copy p {
+        font-size: 12px;
+        line-height: 1.65;
+    }
+    .totem-row {
+        gap: 24px;
+        padding-top: 24px;
+    }
+    .totem-row img {
+        width: 78px;
+        height: 78px;
+    }
+    .artisans-section {
+        padding: 32px 0 43px;
+    }
+    .artisan-row {
+        grid-template-columns: 1fr;
+        gap: 50px;
+        margin-top: 26px;
+    }
+    .artisan-card {
+        border-radius: 4px;
+    }
+    .artisan-card div {
+        min-height: 68px;
+        padding: 7px 8px 9px;
+    }
+    .artisan-card h3 {
+        margin-bottom: 3px;
+        font-size: 10px;
+    }
+    .artisan-card p {
+        font-size: 10px;
+        line-height: 1.45;
+    }
+    .craft-section {
+        padding: 29px 0 35px;
+    }
+    .craft-title-shell {
+        padding-bottom: 19px;
+    }
+    .craft-banner {
+        height: 95px;
+    }
+    .craft-cards {
+        gap: 10px;
+        width: 90%;
+        margin-top: -29px;
+    }
+    .card-up{
+        transform: translateY(-12px);
+    }
+    .craft-card p {
+        padding: 11px 6px;
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+    .craft-card img {
+        padding: 3px;
+    }
+
+    .footer-col h3 {
+        margin: 0 0 15px;
+        font-size: 24px;
+        font-weight: 500;
+    }
+    .footer-col p,
+    .footer-col a {
+        display: block;
+        margin: 6px 0;
+        color: #d8e5f6;
+        font-size: 14px;
+        line-height: 1.65;
+    }
+    .subscribe-box{
+        display:flex;
+        margin-top:10px;
+    }
+    .subscribe-box input{
+        flex:1;
+        height:36px;
+        border:none;
+        padding:0 10px;
+        border-radius:4px 0 0 4px;
+        outline:none;
+    }
+    .send-btn{
+        width:44px;
+        background:#775c3b;
+        color:#fff;
+        border:none;
+        cursor:pointer;
+        border-radius:0 4px 4px 0;
+    }
+
+    /* 移动端适配联系图标 */
+    .contact-row {
+        margin: 18px 0;
+        gap: 8px;
+    }
+    .contact-icon {
+        width: 34px;
+        height: 34px;
+    }
+}

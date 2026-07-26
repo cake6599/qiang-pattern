@@ -2,40 +2,299 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- iOS移动端适配必须加 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纹样音频合成器</title>
-    <style>
-        button {
-            margin: 8px;
-            padding: 10px 16px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #wave {
-            margin-top: 20px;
-            border: 1px solid #999;
-            width: 100%;
-            max-width: 800px;
-            height: 200px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="羌族纹样文化展示网站">
+    <title>羌族纹样</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <!-- 五个纹样按钮 -->
-    <div>
-        <button onclick="playPattern('羊角')">羊角纹</button>
-        <button onclick="playPattern('火纹')">火纹</button>
-        <button onclick="playPattern('云纹')">云纹</button>
-        <button onclick="playPattern('几何')">几何纹</button>
-        <button onclick="playPattern('植物')">植物纹</button>
+<div class="wrap-container">
+    <header class="site-header">
+        <a class="site-brand" href="#home">
+            <span class="brand-badge">✦</span>
+            <span>羌族纹样</span>
+        </a>
+
+        <button class="menu-button" type="button" aria-label="展开导航" aria-expanded="false">☰</button>
+
+        <nav class="main-nav" aria-label="主导航">
+            <a href="#home">首页</a>
+            <a href="#about">关于羌族</a>
+            <a href="#patterns">纹样欣赏</a>
+            <a href="#taboo">羌族崇拜</a>
+            <a href="#artisans">匠人传承</a>
+            <a href="#craft">传统工艺</a>
+            <a href="#contact">联系我们</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1>羌族纹样</h1>
+                <p>传承千年文脉 留存民族纹样珍贵记忆</p>
+            </div>
+        </section>
+
+        <section id="about" class="about-section bg-about">
+            <div class="content-shell">
+                <div class="section-title">
+                    <span class="title-ornament">✦</span>
+                    <h2>关于羌族</h2>
+                    <span class="title-ornament">✦</span>
+                </div>
+
+                <p class="section-subtitle">羌纹织岁月，古艺叙羌源</p>
+
+                <div class="about-layout">
+                    <figure class="about-image about-image-left">
+                        <img src="./assets/images/about_1.jpg" alt="羌族刺绣工艺">
+                    </figure>
+
+                    <div class="about-text">
+                        <p>羌族是我国历史悠久的古老少数民族之一，自古繁衍生息于岷江上游河谷地带，有着深厚绵长的族群文明脉络。在漫长的历史进程中，羌族依托山地农耕、游牧生活形成独特地域文化，没有专属文字的他们，将族群历史、信仰祈愿与生活感悟寄托于刺绣、服饰纹样之中，让纹样成为承载民族记忆的鲜活载体。</p>
+                        <p>羌族纹样大多取材于自然风物与本土信仰，花卉、卷草、几何对称纹样是羌绣最常见的构图样式，你所见的团花对称纹样便是典型代表。羌族民众敬畏山川草木，喜爱将山间盛放的花卉、灵动的云纹卷草绣于织物之上，中心团花寓意圆满安康，四周环绕的卷曲纹路象征连绵不绝的生机与福气。</p>
+                        <p>古时羌民常把这类纹样绣在头帕、围腰、服饰配饰上，既用于日常穿搭装饰，也承载着祈福纳祥的美好期许，寄托着羌族人对平安顺遂、阖家美满的向往。一代代羌族妇女以针线为笔，把自然景致、民族信仰绣成纹样，让羌纹跨越时光，留存下古老族群的生活印记与精神内涵。</p>
+                    </div>
+
+                    <figure class="about-image about-image-right">
+                        <img src="./assets/images/about_2.jpg" alt="羌族传统服饰纹样">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section id="patterns" class="patterns-section bg-patterns">
+            <div class="content-shell">
+                <div class="section-title">
+                    <span class="title-ornament">✦</span>
+                    <h2>纹样欣赏</h2>
+                    <span class="title-ornament">✦</span>
+                </div>
+
+                <div class="pattern-group" data-carousel>
+                    <h3>植物纹样</h3>
+                    <div class="pattern-carousel">
+                        <button class="carousel-arrow carousel-prev" type="button" aria-label="查看上一组植物纹样">‹</button>
+                        <div class="pattern-viewport">
+                            <div class="pattern-cards">
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant1.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant2.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant3.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant4.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant5.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant6.jpg" alt="羌族植物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/plant7.jpg" alt="羌族植物纹样">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow carousel-next" type="button" aria-label="查看下一组植物纹样">›</button>
+                    </div>
+                </div>
+
+                <div class="pattern-group" data-carousel>
+                    <h3>动物纹样</h3>
+                    <div class="pattern-carousel">
+                        <button class="carousel-arrow carousel-prev" type="button" aria-label="查看上一组动物纹样">‹</button>
+                        <div class="pattern-viewport">
+                            <div class="pattern-cards">
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal1.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal2.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal3.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal4.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal5.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal6.jpg" alt="羌族动物纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/animal7.jpg" alt="羌族动物纹样">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow carousel-next" type="button" aria-label="查看下一组动物纹样">›</button>
+                    </div>
+                </div>
+
+                <div class="pattern-group" data-carousel>
+                    <h3>几何纹样</h3>
+                    <div class="pattern-carousel">
+                        <button class="carousel-arrow carousel-prev" type="button" aria-label="查看上一组几何纹样">‹</button>
+                        <div class="pattern-viewport">
+                            <div class="pattern-cards">
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo1.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo2.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo3.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo4.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo5.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo6.jpg" alt="羌族几何纹样">
+                                </a>
+                                <a href="./pattern-detail.html" target="_blank" class="pattern-card">
+                                    <img src="./assets/images/pattern/geo7.jpg" alt="羌族几何纹样">
+                                </a>
+                            </div>
+                        </div>
+                        <button class="carousel-arrow carousel-next" type="button" aria-label="查看下一组几何纹样">›</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="taboo" class="taboo-section bg-totem">
+            <div class="content-shell taboo-title-shell">
+                <div class="section-title">
+                    <span class="title-ornament">✦</span>
+                    <h2>羌族崇拜</h2>
+                    <span class="title-ornament">✦</span>
+                </div>
+            </div>
+
+            <div class="taboo-copy">
+                <p>作为游牧民族，万物有灵的观念形成了羌族以“羊”为偶像的图腾崇拜观。古羌人认为白色公羊具有超凡的生殖能力，于是乎成为了羌人繁衍生息中最重要也最密切的生物。在羌族的发展中，羊逐渐被注入了人类的观念，变得神圣，有了巨大的魔力。</p>
+            </div>
+
+            <div class="totem-row">
+                <img src="./assets/images/totem_1.jpg" alt="羊图腾">
+                <img src="./assets/images/totem_2.jpg" alt="鼓面纹样">
+                <img src="./assets/images/totem_3.jpg" alt="石刻图腾">
+            </div>
+        </section>
+
+        <section id="artisans" class="artisans-section bg-artisan">
+            <div class="content-shell">
+                <div class="section-title">
+                    <span class="title-ornament">✦</span>
+                    <h2>匠人传承</h2>
+                    <span class="title-ornament">✦</span>
+                </div>
+
+                <div class="artisan-row">
+                    <a href="https://baike.baidu.com/item/杨华珍" target="_blank" class="artisan-card">
+                        <img src="./assets/images/craft_1.jpg" alt="杨华珍">
+                        <div>
+                            <h3>杨华珍</h3>
+                            <p>国家级非遗藏羌织绣代表性传承人 中国非遗协会理事 四川非遗协会副会长 四川工艺美术大师 成都市版权协会名誉会长</p>
+                        </div>
+                    </a>
+                    <a href="https://baike.baidu.com/item/陈云珍" target="_blank" class="artisan-card">
+                        <img src="./assets/images/craft_2.jpg" alt="陈云珍">
+                        <div>
+                            <h3>陈云珍</h3>
+                            <p>羌绣传统刺绣工艺省级代表性传承人 全国优秀农民工 全国巾帼建功标兵 四川工匠 四川技能大师 将指尖记忆转化为指尖经济，用一针一线焕发新生</p>
+                        </div>
+                    </a>
+                    <a href="https://baike.baidu.com/item/李兴秀" target="_blank" class="artisan-card">
+                        <img src="./assets/images/craft_3.jpg" alt="李兴秀">
+                        <div>
+                            <h3>李兴秀</h3>
+                            <p>国家级非物质文化遗产羌绣刺绣代表性传承人。现任四川羌绣绣庄有限责任公司董事长兼总经理、阿坝州羌族刺绣协会会长、茂县政协常委、茂县文学艺术界联合会工艺美术协会副主席</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="craft" class="craft-section bg-craft">
+            <div class="content-shell craft-title-shell">
+                <div class="section-title"><span class="title-ornament">✦</span><h2>传统工艺</h2><span class="title-ornament">✦</h2></div>
+            </div>
+            <img class="craft-banner" src="./assets/images/tech_group.jpg" alt="羌族传统工艺展示">
+            <div class="craft-cards">
+                <article class="craft-card craft-card-blue card-up">
+                    <p>羌绣架花刺绣工艺</p>
+                    <img src="./assets/images/flower1.png" alt="架花刺绣纹样">
+                </article>
+                <article class="craft-card craft-card-gold card-down">
+                    <p>羌绣撇花刺绣工艺</p>
+                    <img src="./assets/images/flower2.png" alt="撇花刺绣纹样">
+                </article>
+                <article class="craft-card craft-card-red card-up">
+                    <p>羌绣钩花盘金工艺</p>
+                    <img src="./assets/images/flower3.png" alt="钩花盘金纹样">
+                </article>
+                <article class="craft-card craft-card-brown card-down">
+                    <p>羌织麻布挑染彩绘</p>
+                    <img src="./assets/images/flower4.png" alt="麻布挑染纹样">
+                </article>
+            </div>
+        </section>
+    </main>
+
+<footer id="contact" class="site-footer">
+    <div class="footer-col">
+        <h3>羌绣纹样</h3>
+        <p>羌纹映岁月，绣色寄初心，方寸刺绣间留存独属于羌族的人文情怀</p>
     </div>
-
-    <!-- 波形画布 -->
-    <canvas id="wave"></canvas>
-
-    <!-- 引入js，顺序不能乱 -->
-    <script src="./js/audio.js"></script>
+    <div class="footer-col">
+        <h3>快速链接</h3>
+        <a href="#home">首页</a>
+        <a href="#about">关于羌族</a>
+        <a href="#patterns">纹样欣赏</a>
+        <a href="#taboo">羌族崇拜</a>
+        <a href="#artisans">匠人传承</a>
+        <a href="#craft">传统工艺</a>
+    </div>
+    <div class="footer-col">
+        <h3>订阅通讯</h3>
+        <p>订阅我们的通讯，获得更多最新的羌族信息</p>
+        <div class="subscribe-box">
+            <input type="email" id="emailInput" placeholder="请输入邮箱">
+            <button class="send-btn">
+                <img src="./assets/images/send_btn.png" alt="发送箭头">
+            </button>
+        </div>
+    </div>
+    <div class="footer-col">
+        <h3>联系我们</h3>
+        <div class="contact-row">
+            <img class="contact-icon" src="./assets/images/location.png" alt="地址">
+            <span>四川农业大学雅安校区</span>
+        </div>
+        <div class="contact-row">
+            <img class="contact-icon" src="./assets/images/email.png" alt="邮箱">
+            <span>2345666750@qq.com</span>
+        </div>
+        <div class="contact-row">
+            <img class="contact-icon" src="./assets/images/phone.png" alt="电话">
+            <span>18901285251</span>
+        </div>
+    </div>
+</footer>
+</div>
     <script src="./js/app.js"></script>
+    <script src="./js/ausio.js"></script>
 </body>
 </html>
