@@ -134,7 +134,7 @@ height:100%;
 .bg-pattern-bg {
     background-image: url("../assets/images/bg/gold_pattern_bg.png");
     background-size: contain;
-    background-position: center -10px;
+    background-position: center -5px;
     background-repeat: no-repeat;
 }
 
