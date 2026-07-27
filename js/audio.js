@@ -1,18 +1,30 @@
 // 全局音频变量
 let audioCtx = null;
-let currentOscillator = null;
+let currentNodes = null;
 let analyser = null;
 let canvas, canvasCtx;
 let animationId = null;
 let isDrawing = false;
 
 // 初始化音频上下文（iOS必须手势触发，不自动唤醒）
-function initAudioCtx() {
+async function initAudioCtx() {
+
     if (!audioCtx) {
+
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
         analyser = audioCtx.createAnalyser();
+
         analyser.fftSize = 2048;
+
     }
+
+    if (audioCtx.state === "suspended") {
+
+        await audioCtx.resume();
+
+    }
+
 }
 
 // 初始化画布 高清DPR适配
@@ -26,7 +38,9 @@ function initCanvas() {
         const height = canvas.offsetHeight;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
-        canvasCtx.scale(dpr, dpr);
+        canvasCtx.setTransform(1,0,0,1,0,0);
+
+        canvasCtx.scale(dpr,dpr);
     }
     resize();
     window.addEventListener("resize", resize);
@@ -63,8 +77,8 @@ function drawWaveform() {
 }
 
 // 核心播放函数
-function playPattern(type) {
-    initAudioCtx();
+async function playPattern(type){
+    await initAudioCtx();
     if (!canvas) {
         initCanvas();
     }
@@ -74,11 +88,18 @@ function playPattern(type) {
     }
 
     // 新声音停止旧声音
-    if (currentOscillator) {
-        try {
-            currentOscillator.stop();
-        } catch (err) {}
-        currentOscillator = null;
+    if(currentNodes){
+
+        try{
+
+            currentNodes.osc.stop();
+
+        }catch(e){}
+
+        currentNodes.gain.disconnect();
+
+        currentNodes.osc.disconnect();
+
     }
 
     // =====================16组完整音效配置=====================
@@ -117,12 +138,20 @@ function playPattern(type) {
     gain.gain.linearRampToValueAtTime(0, now + attack + decay);
 
     osc.connect(gain);
+
     gain.connect(analyser);
-    analyser.connect(audioCtx.destination);
+
+    gain.connect(audioCtx.destination);
     console.log(audioCtx.state);
     osc.start(now);
     osc.stop(now + attack + decay + 0.02);
-    currentOscillator = osc;
+    currentNodes = {
+
+        osc,
+
+        gain
+
+    };
 
     // 抛出事件
     window.dispatchEvent(new CustomEvent("audio-play", {detail:{soundType:type}}));
@@ -139,16 +168,31 @@ function playPattern(type) {
 
 // 全局停止音频接口
 window.stopAudio = function(){
-    if(currentOscillator){
+
+    if(currentNodes){
+
         try{
-            currentOscillator.stop();
+
+            currentNodes.osc.stop();
+
         }catch(e){}
-        currentOscillator = null;
+
+        currentNodes.gain.disconnect();
+
+        currentNodes.osc.disconnect();
+
+        currentNodes = null;
+
     }
+
     isDrawing = false;
+
     cancelAnimationFrame(animationId);
+
     animationId = null;
+
     window.dispatchEvent(new CustomEvent("audio-stop"));
+
 }
 
 // 页面卸载释放资源
