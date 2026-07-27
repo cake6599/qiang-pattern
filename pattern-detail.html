@@ -5,70 +5,91 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="羌族纹样详情页">
 <title>羌族纹样详情</title>
-<!-- 公共样式 -->
+
 <link rel="stylesheet" href="./css/style.css">
-<!-- 新增：详情页独立样式 -->
 <link rel="stylesheet" href="./css/pattern-detail.css">
+
 </head>
 <body>
+
 <div class="wrap-container">
+
 <header class="site-header">
 <div class="site-brand">
 <div class="brand-badge"></div>
 <span>羌族纹样</span>
 </div>
+
 <nav class="main-nav">
 <a href="./index.html#home">首页</a>
 <a href="./index.html#patterns">纹样欣赏</a>
 </nav>
 </header>
+
 <main>
 <section class="detail-wrap">
+
 <div class="bg-material bg-pattern-bg"></div>
+
 <div class="detail-inner">
+
 <div class="detail-top-bar">
+
 <div class="detail-title">
 <h2>纹样信息
 <span>Pattern Information</span>
 </h2>
 </div>
+
 <div class="tab-nav">
 <span class="active" data-tab="all">全部</span>
 <span data-tab="info">相关信息</span>
 <span data-tab="mean">语义含义</span>
 <span data-tab="story">历史故事</span>
 </div>
+
 </div>
+
 <div class="detail-layout">
-<!-- 左侧 -->
+
 <div class="left-panel">
+
 <div class="pattern-preview-box">
 <img id="patternImg">
 </div>
+
 <div class="left-info-box">
-    <div class="pattern-label-info">
-        <h3 id="patternName"></h3>
-        <p id="patternDesc"></p>
-        <span class="tag-type" id="patternTag"></span>
-    </div>
-    <div class="audio-player">
-        <button class="play-btn" id="audioPlayBtn">▶</button>
-        <canvas class="wave-canvas" id="wave"></canvas>
-    </div>
+
+<div class="pattern-label-info">
+<h3 id="patternName"></h3>
+<p id="patternDesc"></p>
+<span class="tag-type" id="patternTag"></span>
 </div>
+
+<div class="audio-player">
+<button class="play-btn" id="audioPlayBtn">▶</button>
+<canvas class="wave-canvas" id="wave"></canvas>
 </div>
-<!-- 右侧 -->
+
+</div>
+
+</div>
+
 <div class="right-panel" id="rightContainer">
 </div>
+
 </div>
+
 </div>
+
 </section>
 </main>
+
 </div>
-<!-- 公共JS -->
+
 <script src="./js/app.js"></script>
 <script src="./js/audio.js"></script>
-<!-- 新增：详情页独立脚本 -->
 <script src="./js/pattern-detail.js"></script>
+
 </body>
 </html>
