@@ -16,20 +16,20 @@ function initAudioCtx() {
 }
 
 // 初始化画布 高清DPR适配
-function initCanvas() {
-    canvas = document.getElementById("wave");
-    canvasCtx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
+async function initAudioCtx() {
 
-    function resize() {
-        const width = canvas.offsetWidth;
-        const height = canvas.offsetHeight;
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
-        canvasCtx.scale(dpr, dpr);
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        analyser = audioCtx.createAnalyser();
+
+        analyser.fftSize = 2048;
     }
-    resize();
-    window.addEventListener("resize", resize);
+
+    if(audioCtx.state === "suspended"){
+        await audioCtx.resume();
+    }
+
 }
 
 // 绘制波形
@@ -63,8 +63,8 @@ function drawWaveform() {
 }
 
 // 核心播放函数
-function playPattern(type) {
-    initAudioCtx();
+async function playPattern(type){
+    await initAudioCtx();
     if (!canvas) {
         initCanvas();
     }
