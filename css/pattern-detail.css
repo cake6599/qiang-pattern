@@ -21,10 +21,10 @@ body {
     font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif;
 }
 
-.wrap-container {
-    max-width: 1760px;
-    margin: auto;
-    overflow: hidden;
+.wrap-container{
+    max-width:1400px;
+    margin:auto;
+    overflow:visible;
 }
 
 img {
