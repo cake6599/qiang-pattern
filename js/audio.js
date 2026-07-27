@@ -40,8 +40,10 @@ function initCanvas() {
 
         const dpr = window.devicePixelRatio || 1;
 
-        const width = canvas.offsetWidth;
-        const height = canvas.offsetHeight;
+        const rect = canvas.getBoundingClientRect();
+
+        const width = rect.width || 700;
+        const height = rect.height || 130;
 
         canvas.width = width * dpr;
         canvas.height = height * dpr;
@@ -71,8 +73,10 @@ function drawWaveform() {
     analyser.getByteTimeDomainData(dataArr);
 
     // 用CSS尺寸，不用canvas.width
-    const w = canvas.offsetWidth;
-    const h = canvas.offsetHeight;
+    const rect = canvas.getBoundingClientRect();
+
+    const w = rect.width || 700;
+    const h = rect.height || 130;
 
     canvasCtx.clearRect(0, 0, w, h);
 
@@ -192,7 +196,7 @@ async function playPattern(type){
 
     // 音频结束回调
     osc.onended = ()=>{
-        currentOscillator = null;
+        currentNodes = null;
         isDrawing = false;
         cancelAnimationFrame(animationId);
         animationId = null;
