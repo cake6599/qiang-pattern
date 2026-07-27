@@ -8,44 +8,46 @@ html {
 
 
 /* 移动端取消缩放，保持原尺寸 */
-@media(max-width:760px){
+@media (max-width:760px){
 
     html{
-        transform:none;
-        width:100%;
+        transform:scale(0.42);
+        transform-origin:top left;
+
+        width:238%;
         height:auto;
     }
 
 
     body{
-        min-width:0;
-        overflow-x:hidden;
+        min-width:1440px;
+        overflow-x:auto;
     }
 
+
+    .detail-wrap{
+
+        min-height:2400px;
+
+    }
+    .bg-pattern-bg{
+
+        background-size:auto 2400px;
+
+    }
 
     .wrap-container{
-        max-width:100%;
+
         overflow:visible;
+
     }
+    .color-row{
 
+        gap:100px;
 
-    .detail-layout{
-        grid-template-columns:1fr;
+        width:max-content;
+
     }
-
-
-    .left-panel,
-    .right-panel{
-        width:100%;
-    }
-    .detail-wrap{
-        min-height: 1300px;
-    }
-
-    .bg-pattern-bg{
-        background-size: auto 1300px;
-        background-position:center top;
-    }    
 
 }
 :root {
