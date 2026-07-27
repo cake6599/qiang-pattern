@@ -6,6 +6,25 @@
     --text-gray: #cccccc;
     --gold-line: #b88935;
 }
+html {
+    transform: scale(1.25);
+    transform-origin: top left;
+    width: 80%;
+    height: 80%;
+}
+@media (max-width:760px){
+    html{
+        transform:scale(0.42);
+        transform-origin:top left;
+        width:238%;
+        height:238%;
+    }
+    body{
+        min-width:1440px;
+        overflow-x:auto;
+    }
+}
+
 
 * {
     box-sizing: border-box;
