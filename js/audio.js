@@ -83,7 +83,7 @@ function drawWaveform() {
     canvasCtx.fillStyle = "#fffcf6";
     canvasCtx.fillRect(0, 0, w, h);
 
-    canvasCtx.lineWidth = 2;
+    canvasCtx.lineWidth = 1.5;
     canvasCtx.strokeStyle = "#1e4f82";
 
     canvasCtx.beginPath();
@@ -94,7 +94,10 @@ function drawWaveform() {
 
     for (let i = 0; i < bufferLen; i++) {
 
-        const y = (dataArr[i] / 255) * h;
+        // 以128为中心，让波形上下摆动
+        const v = (dataArr[i] - 128) / 128.0;
+
+        const y = h / 2 + v * h / 2;
 
         if (i === 0) {
 
