@@ -29,21 +29,34 @@ async function initAudioCtx() {
 
 // 初始化画布 高清DPR适配
 function initCanvas() {
+
     canvas = document.getElementById("wave");
+
+    if (!canvas) return;
+
     canvasCtx = canvas.getContext("2d");
-    const dpr = window.devicePixelRatio || 1;
 
     function resize() {
+
+        const dpr = window.devicePixelRatio || 1;
+
         const width = canvas.offsetWidth;
         const height = canvas.offsetHeight;
+
         canvas.width = width * dpr;
         canvas.height = height * dpr;
-        canvasCtx.setTransform(1,0,0,1,0,0);
 
-        canvasCtx.scale(dpr,dpr);
+        // 每次重置，避免重复scale
+        canvasCtx.setTransform(1, 0, 0, 1, 0, 0);
+
+        canvasCtx.scale(dpr, dpr);
+
     }
+
     resize();
+
     window.addEventListener("resize", resize);
+
 }
 
 // 绘制波形
@@ -55,16 +68,19 @@ function drawWaveform() {
     analyser.getByteTimeDomainData(dataArr);
 
     canvasCtx.fillStyle = "#fffcf6";
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    const w = canvas.offsetWidth;
+    const h = canvas.offsetHeight;
+
+    canvasCtx.fillRect(0, 0, w, h);
     canvasCtx.lineWidth = 2;
     canvasCtx.strokeStyle = "#1e4f82";
     canvasCtx.beginPath();
 
     let x = 0;
-    const sliceWidth = canvas.width / bufferLen;
+    const sliceWidth = w / bufferLen;
     for (let i = 0; i < bufferLen; i++) {
         const v = dataArr[i] / 128.0;
-        const y = v * canvas.height / 2;
+        const y = v * h / 2;
         if (i === 0) {
             canvasCtx.moveTo(x, y);
         } else {
@@ -72,7 +88,7 @@ function drawWaveform() {
         }
         x += sliceWidth;
     }
-    canvasCtx.lineTo(canvas.width, canvas.height / 2);
+    canvasCtx.lineTo(w, h / 2);
     canvasCtx.stroke();
 }
 
