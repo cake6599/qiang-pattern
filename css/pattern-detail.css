@@ -21,10 +21,10 @@ body {
     font-family: "Microsoft YaHei", "Noto Sans SC", sans-serif;
 }
 
-.wrap-container{
-    max-width:1400px;
-    margin:auto;
-    overflow:visible;
+.wrap-container {
+    max-width: 1760px;
+    margin: auto;
+    overflow: hidden;
 }
 
 img {
@@ -139,7 +139,7 @@ a {
 
 .detail-layout {
     display: grid;
-    grid-template-columns: 265px 1fr;
+    grid-template-columns: 260px 1fr;
     gap: 80px;
 }
 
