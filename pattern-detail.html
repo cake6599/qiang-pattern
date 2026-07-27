@@ -160,27 +160,12 @@
             // }
 
             const playAgainBtn = document.getElementById('playAgainBtn');
-            playAgainBtn.addEventListener('click', function () {
-
-                alert("按钮点击成功");
-
-                alert("soundName：" + soundName);
-
-                alert("playPattern：" + typeof window.playPattern);
-
-                if (soundName && window.playPattern) {
-
-                    alert("准备播放");
-
-                    window.playPattern(soundName);
-
-                } else {
-
-                    alert("没有进入播放");
-
+            playAgainBtn.addEventListener('click', function(){
+                if(soundName && window.playPattern){
+                    playPattern(soundName);
                 }
-
             });
+
             const stopBtn = document.getElementById('stopBtn');
             stopBtn.addEventListener('click', function(){
                 if(window.stopAudio){

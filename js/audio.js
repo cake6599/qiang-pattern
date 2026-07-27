@@ -112,16 +112,16 @@ function playPattern(type) {
     const now = audioCtx.currentTime;
     const attack = cfg.attack;
     const decay = cfg.decay;
-    gain.gain.setValueAtTime(0, now);
+    gain.gain.setValueAtTime(0.0001, now);
     gain.gain.linearRampToValueAtTime(0.2, now + attack);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + attack + decay);
+    gain.gain.linearRampToValueAtTime(0, now + attack + decay);
 
     osc.connect(gain);
     gain.connect(analyser);
     analyser.connect(audioCtx.destination);
     console.log(audioCtx.state);
     osc.start(now);
-    osc.stop(now + attack + decay);
+    osc.stop(now + attack + decay + 0.02);
     currentOscillator = osc;
 
     // 抛出事件
