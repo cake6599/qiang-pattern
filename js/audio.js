@@ -1,30 +1,32 @@
 // 全局音频变量
 let audioCtx = null;
-let currentOscillator = null; // 记录当前播放声音，实现点新停旧
+let currentOscillator = null;
 let analyser = null;
 let canvas, canvasCtx;
 let animationId = null;
+let isDrawing = false;
 
-// 初始化音频上下文（兼容iOS）
+// 初始化音频上下文（iOS必须手势触发，不自动唤醒）
 function initAudioCtx() {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         analyser = audioCtx.createAnalyser();
         analyser.fftSize = 2048;
     }
-    // iOS 唤醒音频
-    if (audioCtx.state === "suspended") {
-        audioCtx.resume();
-    }
 }
 
-// 初始化画布
+// 初始化画布 高清DPR适配
 function initCanvas() {
     canvas = document.getElementById("wave");
     canvasCtx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+
     function resize() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
+        const width = canvas.offsetWidth;
+        const height = canvas.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvasCtx.scale(dpr, dpr);
     }
     resize();
     window.addEventListener("resize", resize);
@@ -32,16 +34,16 @@ function initCanvas() {
 
 // 绘制波形
 function drawWaveform() {
+    if(!isDrawing) return;
     animationId = requestAnimationFrame(drawWaveform);
     const bufferLen = analyser.frequencyBinCount;
     const dataArr = new Uint8Array(bufferLen);
     analyser.getByteTimeDomainData(dataArr);
 
-    // 清空画布
-    canvasCtx.fillStyle = "#f7f7f7";
+    canvasCtx.fillStyle = "#fffcf6";
     canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
     canvasCtx.lineWidth = 2;
-    canvasCtx.strokeStyle = "#2563eb";
+    canvasCtx.strokeStyle = "#1e4f82";
     canvasCtx.beginPath();
 
     let x = 0;
@@ -49,8 +51,11 @@ function drawWaveform() {
     for (let i = 0; i < bufferLen; i++) {
         const v = dataArr[i] / 128.0;
         const y = v * canvas.height / 2;
-        if (i === 0) canvasCtx.moveTo(x, y);
-        else canvasCtx.lineTo(x, y);
+        if (i === 0) {
+            canvasCtx.moveTo(x, y);
+        } else {
+            canvasCtx.lineTo(x, y);
+        }
         x += sliceWidth;
     }
     canvasCtx.lineTo(canvas.width, canvas.height / 2);
@@ -59,12 +64,16 @@ function drawWaveform() {
 
 // 核心播放函数
 function playPattern(type) {
-    // 1. 初始化音频+画布
     initAudioCtx();
-    if (!canvas) initCanvas();
-    if (!animationId) drawWaveform();
+    if (!canvas) {
+        initCanvas();
+    }
+    isDrawing = true;
+    if (!animationId) {
+        drawWaveform();
+    }
 
-    // 2. 播放冲突：停止上一个声音
+    // 新声音停止旧声音
     if (currentOscillator) {
         try {
             currentOscillator.stop();
@@ -72,40 +81,81 @@ function playPattern(type) {
         currentOscillator = null;
     }
 
-    // 3. 五种纹样音色配置
+    // =====================16组完整音效配置=====================
     const soundConfig = {
-        "羊角": { freq: 180, wave: "triangle" },
-        "火纹": { freq: 900, wave: "sawtooth" },
-        "云纹": { freq: 500, wave: "sine" },
-        "几何": { freq: 650, wave: "square" },
-        "植物": { freq: 300, wave: "sine" }
+        "花卉纹": { freq: 260, wave: "sine", attack:0.20, decay:0.50 },
+        "卷草藤蔓纹": { freq: 330, wave: "sine", attack:0.32, decay:0.62 },
+        "果蔬谷穗纹": { freq: 210, wave: "triangle", attack:0.16, decay:0.42 },
+        "羊角图腾纹": { freq: 180, wave: "triangle", attack:0.25, decay:0.60 },
+        "灵猴纹": { freq: 420, wave: "sine", attack:0.12, decay:0.36 },
+        "瑞兽纹": { freq: 150, wave: "triangle", attack:0.22, decay:0.58 },
+        "飞鸟纹": { freq: 820, wave: "sine", attack:0.08, decay:0.32 },
+        "蝴蝶蛾纹": { freq: 750, wave: "sine", attack:0.10, decay:0.34 },
+        "鲤鱼纹": { freq: 380, wave: "sine", attack:0.30, decay:0.52 },
+        "蝙蝠纹": { freq: 680, wave: "sawtooth", attack:0.11, decay:0.33 },
+        "基础直线几何纹": { freq: 740, wave: "square", attack:0.02, decay:0.22 },
+        "方形菱形几何纹": { freq: 660, wave: "square", attack:0.03, decay:0.26 },
+        "阶梯复合几何纹": { freq: 570, wave: "square", attack:0.04, decay:0.30 },
+        "火焰天象纹": { freq: 920, wave: "sawtooth", attack:0.05, decay:0.40 },
+        "流云天象纹": { freq: 490, wave: "sine", attack:0.40, decay:0.70 },
+        "山峦水波纹": { freq: 350, wave: "triangle", attack:0.33, decay:0.64 }
     };
     const cfg = soundConfig[type];
+    console.log("播放音效类型：", type, "是否匹配成功：", !!cfg);
+    if(!cfg) return;
 
-    // 创建发声器、音量控制器
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = cfg.wave;
     osc.frequency.value = cfg.freq;
 
-    // 4. Attack + Decay 音量包络（渐起渐消）
     const now = audioCtx.currentTime;
-    const attack = 0.15;
-    const decay = 0.35;
+    const attack = cfg.attack;
+    const decay = cfg.decay;
     gain.gain.setValueAtTime(0, now);
     gain.gain.linearRampToValueAtTime(0.2, now + attack);
     gain.gain.exponentialRampToValueAtTime(0.001, now + attack + decay);
 
-    // 音频链路：振荡器 → 音量 → 波形分析 → 扬声器
     osc.connect(gain);
     gain.connect(analyser);
     analyser.connect(audioCtx.destination);
 
-    // 播放与停止
     osc.start(now);
     osc.stop(now + attack + decay);
     currentOscillator = osc;
+
+    // 抛出事件
+    window.dispatchEvent(new CustomEvent("audio-play", {detail:{soundType:type}}));
+
+    // 音频结束回调
+    osc.onended = ()=>{
+        currentOscillator = null;
+        isDrawing = false;
+        cancelAnimationFrame(animationId);
+        animationId = null;
+        window.dispatchEvent(new CustomEvent("audio-stop"));
+    }
 }
 
-// 暴露给html按钮调用
+// 全局停止音频接口
+window.stopAudio = function(){
+    if(currentOscillator){
+        try{
+            currentOscillator.stop();
+        }catch(e){}
+        currentOscillator = null;
+    }
+    isDrawing = false;
+    cancelAnimationFrame(animationId);
+    animationId = null;
+    window.dispatchEvent(new CustomEvent("audio-stop"));
+}
+
+// 页面卸载释放资源
+window.addEventListener('beforeunload',()=>{
+    if(audioCtx) audioCtx.close();
+    cancelAnimationFrame(animationId);
+})
+
+// 挂载全局
 window.playPattern = playPattern;

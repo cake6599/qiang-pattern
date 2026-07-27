@@ -807,3 +807,17 @@ a {
         height: 34px;
     }
 }
+
+/* ========== 音频可视化Canvas样式【新增】 ========== */
+#wave {
+    max-width: 1100px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(30, 79, 130, 0.12);
+    background-color: var(--paper);
+}
+@media (max-width:760px) {
+    #wave {
+        height: 90px !important;
+        width: 94% !important;
+    }
+}

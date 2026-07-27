@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>纹样详情</title>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        body {
+            background-color: #fcf6e8;
+            margin: 0;
+            padding: 40px 20px;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        .detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .pattern-image-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .detail-img {
+            width: 260px;
+            height: 320px;
+            object-fit: cover;
+            border: 4px solid #D4A76A;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+        }
+
+        .info-card {
+            background: #fffdf4;
+            border: 1px solid #E8D5B7;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 0 auto 25px;
+            max-width: 750px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-card h3 {
+            margin: 0 0 15px;
+            color: #8B4513;
+            font-size: 24px;
+        }
+
+        .info-card p {
+            margin: 8px 0;
+            color: #5A3E2B;
+            line-height: 1.8;
+            font-size:17px;
+        }
+
+        .wave-box {
+            background: #fffdf4;
+            border: 1px solid #E8D5B7;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 0 auto 25px;
+            max-width: 750px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        #wave {
+            width: 100%;
+            height: 130px;
+            display: block;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 10px 24px;
+            border: none;
+            background-color: #8B4513;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .control-btn:hover {
+            background-color: #A0522D;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="detail-container">
+        <div class="pattern-image-box">
+            <img class="detail-img" id="patternImage" alt="纹样图片">
+        </div>
+
+        <div class="info-card">
+            <h3 id="patternName">纹样名称</h3>
+            <p id="patternCategory">分类：纹样</p>
+            <p id="patternDesc">纹样介绍将在这里显示。</p>
+        </div>
+
+        <div class="wave-box">
+            <canvas id="wave"></canvas>
+        </div>
+
+        <div class="btn-group">
+            <button class="control-btn" id="playAgainBtn">重复收听</button>
+            <button class="control-btn" id="stopBtn">停止音效</button>
+            <button class="control-btn" id="backPageBtn">返回首页</button>
+        </div>
+    </div>
+
+    <script src="./js/audio.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const urlParams = new URLSearchParams(window.location.search);
+            const soundName = urlParams.get('sound');
+            const imgSrc = urlParams.get('img');
+            const name = urlParams.get('name');
+            const desc = urlParams.get('desc');
+
+            const patternImage = document.getElementById('patternImage');
+            const patternName = document.getElementById('patternName');
+            const patternCategory = document.getElementById('patternCategory');
+            const patternDesc = document.getElementById('patternDesc');
+
+            if(imgSrc){
+                patternImage.src = imgSrc;
+            }else{
+                patternImage.src = './assets/images/geo/geo1.jpg';
+            }
+
+            if(name){
+                patternName.textContent = name;
+            }
+            if(soundName){
+                patternCategory.textContent = '分类：' + soundName;
+            }
+            if(desc){
+                patternDesc.textContent = desc;
+            }
+
+            // =====【重要！注释自动播放，浏览器安全策略拦截】=====
+            // if(soundName && window.playPattern){
+            //     playPattern(soundName);
+            // }
+
+            const playAgainBtn = document.getElementById('playAgainBtn');
+            playAgainBtn.addEventListener('click', function(){
+                if(soundName && window.playPattern){
+                    playPattern(soundName);
+                }
+            });
+
+            const stopBtn = document.getElementById('stopBtn');
+            stopBtn.addEventListener('click', function(){
+                if(window.stopAudio){
+                    window.stopAudio();
+                }
+            });
+
+            const backPageBtn = document.getElementById('backPageBtn');
+            backPageBtn.addEventListener('click', function(){
+                window.location.href = "./index.html";
+            });
+        });
+    </script>
+</body>
+</html>
