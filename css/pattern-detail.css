@@ -1,50 +1,42 @@
-/* PC保持你现在效果 */
-/* html {
-    transform: scale(1.25);
-    transform-origin: top left;
-    width:80%;
-    height:80%;
-} */
-
-
-/* 移动端取消缩放，保持原尺寸 */
-/* 移动端取消错误双重缩放，修正宽度、溢出、背景基准 */
 @media (max-width:760px){
-    html{
-        /* 删除scale缩放，不再双重缩放 */
-        transform:none;
-        transform-origin:unset;
-        width:auto;
-        height:auto;
-    }
 
-    body{
-        /* 基准宽度和PC设计稿统一1760px，横向滚动查看完整页面 */
-        min-width:1760px;
-        overflow-x:auto;
-    }
+html {
+    transform:none !important;
+    transform-origin:unset !important;
+    width:auto !important;
+    height:auto !important;
+}
 
-    .detail-wrap{
-        overflow:visible;
-        width:1760px;
-        padding:0 32px 80px;
-    }
 
-    .wrap-container{
-        max-width:none;
-        width:1760px;
-        overflow:visible;
-    }
-    .color-row{
-        gap:120px;
-        width:max-content;
-        flex-wrap:nowrap;
-    }
+body{
+    min-width:1760px;
+    overflow-x:auto;
+}
 
-    /* 背景图案严格匹配设计宽度 */
-    .bg-pattern-bg{
-        background-size:1760px auto;
-    }
+
+.wrap-container{
+    width:1760px;
+    max-width:none;
+    overflow:visible;
+}
+
+
+.detail-wrap{
+    width:1760px;
+    overflow:visible;
+}
+
+
+.detail-inner{
+    width:1760px;
+    max-width:none;
+}
+
+
+.right-panel{
+    overflow:visible;
+}
+
 }
 :root {
     --dark-bg: #0a0a0a;
@@ -117,7 +109,7 @@ a {
     position:relative;
     padding:0 32px 80px;
     min-height:calc(100vh - 48px);
-    overflow:hidden;
+    overflow:visible;
     background:#0a0a0a;
 }
 
@@ -389,4 +381,14 @@ a {
 
 .color-item {
     text-align: center;
+}
+
+@media(max-width:760px){
+
+.wrap-container{
+    width:1760px;
+    max-width:none;
+    overflow:visible;
+}
+
 }
