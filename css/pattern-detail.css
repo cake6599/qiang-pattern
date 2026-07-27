@@ -1,40 +1,33 @@
 /* PC保持你现在效果 */
-html {
+/* html {
     transform: scale(1.25);
     transform-origin: top left;
     width:80%;
     height:80%;
-}
+} */
 
 
 /* 移动端取消缩放，保持原尺寸 */
+/* 移动端取消错误双重缩放，修正宽度、溢出、背景基准 */
 @media (max-width:760px){
-
     html{
-        transform:scale(0.42);
-        transform-origin:top left;
-
-        width:238%;
+        /* 删除scale缩放，不再双重缩放 */
+        transform:none;
+        transform-origin:unset;
+        width:auto;
         height:auto;
     }
 
-
     body{
-        min-width:1440px;
+        /* 基准宽度和PC设计稿统一1760px，横向滚动查看完整页面 */
+        min-width:1760px;
         overflow-x:auto;
     }
-
 
     .detail-wrap{
         overflow:visible;
         width:1760px;
-    }
-
-
-    .bg-pattern-bg{
-
-        background-size:auto 2400px;
-
+        padding:0 32px 80px;
     }
 
     .wrap-container{
@@ -43,13 +36,15 @@ html {
         overflow:visible;
     }
     .color-row{
-
-        gap:100px;
-
+        gap:120px;
         width:max-content;
-
+        flex-wrap:nowrap;
     }
 
+    /* 背景图案严格匹配设计宽度 */
+    .bg-pattern-bg{
+        background-size:1760px auto;
+    }
 }
 :root {
     --dark-bg: #0a0a0a;
@@ -145,7 +140,7 @@ a {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1700px;
+    max-width: 1760px;
     margin: auto;
 }
 
