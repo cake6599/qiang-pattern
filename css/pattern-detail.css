@@ -1,3 +1,45 @@
+/* PC保持你现在效果 */
+html {
+    transform: scale(1.25);
+    transform-origin: top left;
+    width:80%;
+    height:80%;
+}
+
+
+/* 移动端取消缩放，保持原尺寸 */
+@media(max-width:760px){
+
+html{
+    transform:none;
+    width:100%;
+    height:auto;
+}
+
+
+body{
+    min-width:0;
+    overflow-x:hidden;
+}
+
+
+.wrap-container{
+    max-width:100%;
+    overflow:visible;
+}
+
+
+.detail-layout{
+    grid-template-columns:1fr;
+}
+
+
+.left-panel,
+.right-panel{
+    width:100%;
+}
+
+}
 :root {
     --dark-bg: #0a0a0a;
     --navy-blue: #0f3470;
@@ -6,24 +48,7 @@
     --text-gray: #cccccc;
     --gold-line: #b88935;
 }
-html {
-    transform: scale(1.25);
-    transform-origin: top left;
-    width: 80%;
-    height: 80%;
-}
-@media (max-width:760px){
-    html{
-        transform:scale(0.42);
-        transform-origin:top left;
-        width:238%;
-        height:238%;
-    }
-    body{
-        min-width:1440px;
-        overflow-x:auto;
-    }
-}
+
 
 
 * {
