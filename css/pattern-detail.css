@@ -1,43 +1,4 @@
-@media (max-width:760px){
 
-html {
-    transform:none !important;
-    transform-origin:unset !important;
-    width:auto !important;
-    height:auto !important;
-}
-
-
-body{
-    min-width:1760px;
-    overflow-x:auto;
-}
-
-
-.wrap-container{
-    width:1760px;
-    max-width:none;
-    overflow:visible;
-}
-
-
-.detail-wrap{
-    width:1760px;
-    overflow:visible;
-}
-
-
-.detail-inner{
-    width:1760px;
-    max-width:none;
-}
-
-
-.right-panel{
-    overflow:visible;
-}
-
-}
 :root {
     --dark-bg: #0a0a0a;
     --navy-blue: #0f3470;
@@ -383,12 +344,35 @@ a {
     text-align: center;
 }
 
+/* 所有样式 */
+
+
 @media(max-width:760px){
 
-.wrap-container{
-    width:1760px;
-    max-width:none;
-    overflow:visible;
-}
+    html{
+        width:1760px;
+        overflow-x:auto;
+    }
+
+    body{
+        width:1760px;
+        min-width:1760px;
+        overflow-x:auto;
+    }
+
+
+    .wrap-container{
+        width:1760px;
+        max-width:none;
+        overflow:visible;
+    }
+
+    .detail-wrap{
+        width:1760px;
+    }
+
+    .detail-inner{
+        width:1760px;
+    }
 
 }
