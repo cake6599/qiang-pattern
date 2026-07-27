@@ -26,10 +26,11 @@ html {
 
 
     .detail-wrap{
-
-        min-height:2400px;
-
+        overflow:visible;
+        width:1760px;
     }
+
+
     .bg-pattern-bg{
 
         background-size:auto 2400px;
@@ -37,9 +38,9 @@ html {
     }
 
     .wrap-container{
-
+        max-width:none;
+        width:1760px;
         overflow:visible;
-
     }
     .color-row{
 
