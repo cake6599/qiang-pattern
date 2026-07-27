@@ -6,12 +6,12 @@
     --beige: #e8d4bb;
     --gold: #d6a44b;
 }
-/* html {
+html {
     transform: scale(1.25);
     transform-origin: top left;
     width: 80%;
     height: 80%;
-} */
+}
 
 * {
     box-sizing: border-box;
@@ -566,264 +566,25 @@ a {
 }
 
 /* =========移动端媒体查询========= */
-@media (max-width: 760px) {
-    .site-header {
-        height: 44px;
-        padding: 0 16px;
+@media (max-width:760px){
+    html{
+        transform:scale(0.42);
+        transform-origin:top left;
+        width:238%;
+        height:238%;
     }
-    .site-brand {
-        font-size: 11px;
+    body{
+        min-width:1440px;
+        overflow-x:auto;
     }
-    .brand-badge {
-        width: 18px;
-        height: 18px;
-        font-size: 9px;
+    .menu-button{display:block;}
+    .main-nav{
+        position:absolute;
+        top:44px;left:0;right:0;
+        display:none;
+        flex-direction:column;
+        padding:20px;
+        background:var(--navy-deep);
     }
-    .menu-button {
-        display: block;
-    }
-    .main-nav {
-        position: absolute;
-        top: 44px;
-        right: 0;
-        left: 0;
-        display: none;
-        flex-direction: column;
-        gap: 15px;
-        padding: 18px 8%;
-        background: var(--navy-deep);
-    }
-    .main-nav.is-open {
-        display: flex;
-    }
-    .hero-section {
-        min-height: 0;
-        padding: 26px 12%;
-        background-position: center;
-    }
-    .hero-content {
-        width: 42%;
-        min-width: 0;
-    }
-    .hero-content h1 {
-        margin-bottom: 8px;
-        font-size: 27px;
-        letter-spacing: 4px;
-    }
-    .hero-content p {
-        font-size: 8px;
-        letter-spacing: 1px;
-        white-space: nowrap;
-    }
-    .content-shell {
-        width: 92%;
-    }
-    .section-title {
-        gap: 8px;
-    }
-    .section-title h2 {
-        font-size: 17px;
-    }
-    .title-ornament {
-        width: 18px;
-        height: 18px;
-        font-size: 9px;
-    }
-    .section-title h2::after {
-        height: 1px;
-        margin-top: 4px;
-    }
-    .about-section {
-        padding: 29px 0 24px;
-    }
-    .section-subtitle {
-        margin: 10px 0 15px;
-        font-size: 9px;
-    }
-    .about-layout {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-    .about-image-left{order:1;}
-    .about-text{order:2;}
-    .about-image-right{order:3;}
-    .about-text {
-        font-size: 12px;
-        line-height: 1.55;
-    }
-    .about-text p {
-        margin-bottom: 5px;
-    }
-    .about-image {
-        border-radius: 5px;
-    }
-    .patterns-section {
-        padding: 30px 0 40px;
-    }
-    .pattern-group {
-        margin-top: 34px;
-    }
-    .pattern-group h3 {
-        margin-bottom: 6px;
-        font-size: 10px;
-    }
-    .pattern-carousel {
-        grid-template-columns: 15px 1fr 15px;
-        gap: 3px;
-    }
-    .carousel-arrow {
-        font-size: 24px;
-    }
-    .pattern-viewport {
-        padding: 15px 0;
-    }
-    .pattern-card {
-        flex: 0 0 56px;
-        height: 70px;
-        margin-left: -12px;
-    }
-    .pattern-card.level-far {
-        transform: translateY(8px) scale(0.86);
-    }
-    .pattern-card.level-near {
-        transform: translateY(6px) scale(0.94);
-    }
-    .pattern-card.level-active {
-        flex-basis: 92px;
-        height: 118px;
-        transform: translateY(0) scale(1);
-    }
-    .taboo-section {
-        padding-bottom: 31px;
-    }
-    .taboo-title-shell {
-        padding: 27px 0 20px;
-    }
-    .taboo-copy {
-        padding: 19px 8%;
-    }
-    .taboo-copy p {
-        font-size: 12px;
-        line-height: 1.65;
-    }
-    .totem-row {
-        gap: 24px;
-        padding-top: 24px;
-    }
-    .totem-row img {
-        width: 78px;
-        height: 78px;
-    }
-    .artisans-section {
-        padding: 32px 0 43px;
-    }
-    .artisan-row {
-        grid-template-columns: 1fr;
-        gap: 50px;
-        margin-top: 26px;
-    }
-    .artisan-card {
-        border-radius: 4px;
-    }
-    .artisan-card div {
-        min-height: 68px;
-        padding: 7px 8px 9px;
-    }
-    .artisan-card h3 {
-        margin-bottom: 3px;
-        font-size: 10px;
-    }
-    .artisan-card p {
-        font-size: 10px;
-        line-height: 1.45;
-    }
-    .craft-section {
-        padding: 29px 0 35px;
-    }
-    .craft-title-shell {
-        padding-bottom: 19px;
-    }
-    .craft-banner {
-        height: 95px;
-    }
-    .craft-cards {
-        gap: 10px;
-        width: 90%;
-        margin-top: -29px;
-    }
-    .card-up{
-        transform: translateY(-12px);
-    }
-    .craft-card p {
-        padding: 11px 6px;
-        font-size: 11px;
-        letter-spacing: 1px;
-    }
-    .craft-card img {
-        padding: 3px;
-    }
-
-    .footer-col h3 {
-        margin: 0 0 15px;
-        font-size: 24px;
-        font-weight: 500;
-    }
-    .footer-col p,
-    .footer-col a {
-        display: block;
-        margin: 6px 0;
-        color: #d8e5f6;
-        font-size: 14px;
-        line-height: 1.65;
-    }
-    .subscribe-box{
-        display:flex;
-        margin-top:10px;
-    }
-    .subscribe-box input{
-        flex:1;
-        height:36px;
-        border:none;
-        padding:0 10px;
-        border-radius:4px 0 0 4px;
-        outline:none;
-    }
-    .send-btn{
-        width:44px;
-        background:#775c3b;
-        color:#fff;
-        border:none;
-        cursor:pointer;
-        border-radius:0 4px 4px 0;
-    }
-
-    /* 移动端适配联系图标 */
-    .contact-row {
-        margin: 18px 0;
-        gap: 8px;
-    }
-    .contact-icon {
-        width: 34px;
-        height: 34px;
-    }
-}
-
-/* ========== 音频可视化Canvas样式【新增】 ========== */
-#wave {
-    max-width: 1100px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(30, 79, 130, 0.12);
-    background-color: var(--paper);
-}
-/* @media (max-width:760px) {
-    #wave {
-        height: 90px !important;
-        width: 94% !important;
-    }
-} */
- html,body{
-  overflow-x:auto; /*允许横向滚动，完整显示页面*/
-}
-*{
-  -webkit-text-size-adjust: 100%; /*禁止手机自动放大文字！重要*/
+    .main-nav.is-open{display:flex;}
 }
