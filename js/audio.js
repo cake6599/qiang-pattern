@@ -46,7 +46,6 @@ function initCanvas() {
         canvas.width = width * dpr;
         canvas.height = height * dpr;
 
-        // 每次重置，避免重复scale
         canvasCtx.setTransform(1, 0, 0, 1, 0, 0);
 
         canvasCtx.scale(dpr, dpr);
@@ -61,35 +60,54 @@ function initCanvas() {
 
 // 绘制波形
 function drawWaveform() {
-    if(!isDrawing) return;
+
+    if (!isDrawing || !canvas || !canvasCtx || !analyser) return;
+
     animationId = requestAnimationFrame(drawWaveform);
-    const bufferLen = analyser.frequencyBinCount;
+
+    const bufferLen = analyser.fftSize;
     const dataArr = new Uint8Array(bufferLen);
+
     analyser.getByteTimeDomainData(dataArr);
 
-    canvasCtx.fillStyle = "#fffcf6";
+    // 用CSS尺寸，不用canvas.width
     const w = canvas.offsetWidth;
     const h = canvas.offsetHeight;
 
+    canvasCtx.clearRect(0, 0, w, h);
+
+    canvasCtx.fillStyle = "#fffcf6";
     canvasCtx.fillRect(0, 0, w, h);
+
     canvasCtx.lineWidth = 2;
     canvasCtx.strokeStyle = "#1e4f82";
+
     canvasCtx.beginPath();
 
     let x = 0;
+
     const sliceWidth = w / bufferLen;
+
     for (let i = 0; i < bufferLen; i++) {
-        const v = dataArr[i] / 128.0;
-        const y = v * h / 2;
+
+        const y = (dataArr[i] / 255) * h;
+
         if (i === 0) {
+
             canvasCtx.moveTo(x, y);
+
         } else {
+
             canvasCtx.lineTo(x, y);
+
         }
+
         x += sliceWidth;
+
     }
-    canvasCtx.lineTo(w, h / 2);
+
     canvasCtx.stroke();
+
 }
 
 // 核心播放函数
