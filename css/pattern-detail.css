@@ -22,9 +22,9 @@ body {
 }
 
 .wrap-container {
-    max-width: 1760px;
-    margin: auto;
-    overflow: hidden;
+    max-width:1760px;
+    margin:auto;
+    overflow:visible;
 }
 
 img {
@@ -251,7 +251,7 @@ a {
 
 .thumb-row {
     display: flex;
-    gap: 88px;
+    gap: 50px;
 }
 
 .thumb-row img {
@@ -330,7 +330,7 @@ a {
 
 .color-row {
     display: flex;
-    gap: 120px;
+    gap: 70px;
     flex-wrap: nowrap;
 }
 
