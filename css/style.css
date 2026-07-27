@@ -6,12 +6,12 @@
     --beige: #e8d4bb;
     --gold: #d6a44b;
 }
-html {
+/* html {
     transform: scale(1.25);
     transform-origin: top left;
     width: 80%;
     height: 80%;
-}
+} */
 
 * {
     box-sizing: border-box;
@@ -815,9 +815,15 @@ a {
     box-shadow: 0 4px 10px rgba(30, 79, 130, 0.12);
     background-color: var(--paper);
 }
-@media (max-width:760px) {
+/* @media (max-width:760px) {
     #wave {
         height: 90px !important;
         width: 94% !important;
     }
+} */
+ html,body{
+  overflow-x:auto; /*允许横向滚动，完整显示页面*/
+}
+*{
+  -webkit-text-size-adjust: 100%; /*禁止手机自动放大文字！重要*/
 }
