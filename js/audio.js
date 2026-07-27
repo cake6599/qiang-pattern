@@ -15,7 +15,7 @@ async function initAudioCtx() {
 
         analyser = audioCtx.createAnalyser();
 
-        analyser.fftSize = 2048;
+        analyser.fftSize = 256;
 
     }
 
@@ -61,58 +61,92 @@ function initCanvas() {
 }
 
 // 绘制波形
-function drawWaveform() {
+// 绘制竖线音频波形
+// 绘制动态音频条
+function drawWaveform(){
 
-    if (!isDrawing || !canvas || !canvasCtx || !analyser) return;
+    if(!isDrawing || !canvas || !canvasCtx || !analyser)
+        return;
 
-    animationId = requestAnimationFrame(drawWaveform);
 
-    const bufferLen = analyser.fftSize;
-    const dataArr = new Uint8Array(bufferLen);
+    animationId=requestAnimationFrame(drawWaveform);
 
-    analyser.getByteTimeDomainData(dataArr);
 
-    // 用CSS尺寸，不用canvas.width
-    const rect = canvas.getBoundingClientRect();
 
-    const w = rect.width || 700;
-    const h = rect.height || 130;
+    const bufferLen=analyser.frequencyBinCount;
 
-    canvasCtx.clearRect(0, 0, w, h);
+    const dataArr=new Uint8Array(bufferLen);
 
-    canvasCtx.fillStyle = "#fffcf6";
-    canvasCtx.fillRect(0, 0, w, h);
 
-    canvasCtx.lineWidth = 1.8;
-    canvasCtx.strokeStyle = "#1e4f82";
+    analyser.getByteFrequencyData(dataArr);
 
-    canvasCtx.beginPath();
 
-    let x = 0;
 
-    const sliceWidth = w / bufferLen;
+    const rect=canvas.getBoundingClientRect();
 
-    for (let i = 0; i < bufferLen; i++) {
+    const w=rect.width || 120;
 
-        const v = dataArr[i] / 128.0;
+    const h=rect.height || 45;
 
-        const y = (v * h) / 2;  
 
-        if (i === 0) {
 
-            canvasCtx.moveTo(x, y);
+    canvasCtx.clearRect(0,0,w,h);
 
-        } else {
 
-            canvasCtx.lineTo(x, y);
 
-        }
+    canvasCtx.strokeStyle="#ffffff";
 
-        x += sliceWidth;
+    canvasCtx.lineWidth=2;
+
+
+
+    const barCount=30;
+
+    const barSpace=w/barCount;
+
+
+
+    for(let i=0;i<barCount;i++){
+
+
+        //直接取频段，不平均
+        let value=dataArr[i*3];
+
+
+
+        //增强变化
+        let height=(value/255)*h;
+
+
+
+        //最低高度
+        height=Math.max(height,6);
+
+
+
+        let x=i*barSpace;
+
+
+
+        canvasCtx.beginPath();
+
+
+        canvasCtx.moveTo(
+            x,
+            h/2-height/2
+        );
+
+
+        canvasCtx.lineTo(
+            x,
+            h/2+height/2
+        );
+
+
+        canvasCtx.stroke();
+
 
     }
-
-    canvasCtx.stroke();
 
 }
 
@@ -167,24 +201,30 @@ async function playPattern(type){
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
+
     osc.type = cfg.wave;
     osc.frequency.value = cfg.freq;
+    const osc2 = audioCtx.createOscillator();
 
+    osc2.type = cfg.wave;
+
+    osc2.frequency.value = cfg.freq * 2;
     const now = audioCtx.currentTime;
     const attack = cfg.attack;
     const decay = cfg.decay;
     gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.linearRampToValueAtTime(0.2, now + attack);
-    gain.gain.linearRampToValueAtTime(0, now + attack + decay);
+    gain.gain.linearRampToValueAtTime(0.35, now + attack);
+    gain.gain.linearRampToValueAtTime(0, now + attack + decay+0.5);
 
     osc.connect(gain);
-
+    osc2.connect(gain);
     gain.connect(analyser);
 
     gain.connect(audioCtx.destination);
     console.log(audioCtx.state);
     osc.start(now);
-    osc.stop(now + attack + decay + 0.02);
+    osc2.start(now);
+    osc.stop(now + attack + decay + 0.5);
     currentNodes = {
 
         osc,
