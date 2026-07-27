@@ -16,20 +16,20 @@ function initAudioCtx() {
 }
 
 // 初始化画布 高清DPR适配
-async function initAudioCtx() {
+function initCanvas() {
+    canvas = document.getElementById("wave");
+    canvasCtx = canvas.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
 
-    if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-        analyser = audioCtx.createAnalyser();
-
-        analyser.fftSize = 2048;
+    function resize() {
+        const width = canvas.offsetWidth;
+        const height = canvas.offsetHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvasCtx.scale(dpr, dpr);
     }
-
-    if(audioCtx.state === "suspended"){
-        await audioCtx.resume();
-    }
-
+    resize();
+    window.addEventListener("resize", resize);
 }
 
 // 绘制波形
@@ -63,8 +63,8 @@ function drawWaveform() {
 }
 
 // 核心播放函数
-async function playPattern(type){
-    await initAudioCtx();
+function playPattern(type) {
+    initAudioCtx();
     if (!canvas) {
         initCanvas();
     }
@@ -119,7 +119,7 @@ async function playPattern(type){
     osc.connect(gain);
     gain.connect(analyser);
     analyser.connect(audioCtx.destination);
-
+    console.log(audioCtx.state);
     osc.start(now);
     osc.stop(now + attack + decay);
     currentOscillator = osc;
