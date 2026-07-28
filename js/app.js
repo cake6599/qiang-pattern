@@ -19,17 +19,24 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     // 轮播代码【修改升级版：支持 far2/far1/near/active 四层，最多7张分层】
-    const groups = document.querySelectorAll('[data-carousel]');
-    groups.forEach(group => {
-        const viewport = group.querySelector('.pattern-viewport');
-        const track = group.querySelector('.pattern-cards');
-        const items = [...track.querySelectorAll('.pattern-card')];
-        const prevBtn = group.querySelector('.carousel-prev');
-        const nextBtn = group.querySelector('.carousel-next');
+// 轮播代码【修改升级版：支持 far2/far1/near/active 四层，最多7张分层 + 鼠标拖拽 + 移动端手指滑动】
+const groups = document.querySelectorAll('[data-carousel]');
+groups.forEach(group => {
+    const viewport = group.querySelector('.pattern-viewport');
+    const track = group.querySelector('.pattern-cards');
+    const items = [...track.querySelectorAll('.pattern-card')];
+    const prevBtn = group.querySelector('.carousel-prev');
+    const nextBtn = group.querySelector('.carousel-next');
 
-        let offsetX = 0;
-        const overlapOffset = 45; /* 和css margin-left:-45px保持一致！！ */
-        const baseItemWidth = items[0].offsetWidth - overlapOffset;
+    let offsetX = 0;
+    const overlapOffset = 45; /* 和css margin-left:-45px保持一致！！ */
+    const baseItemWidth = items[0].offsetWidth - overlapOffset;
+
+    // ========== 拖拽相关变量 ==========
+    let isDragging = false;
+    let startX = 0;
+    let dragStartOffset = 0;
+    let moveDistance = 0; // 判断是拖动还是点击
 
     function updateScaleByCenter(){
         const viewCenterX = viewport.offsetWidth / 2;
@@ -68,23 +75,86 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
 
-        function renderTrack(){
-            track.style.transform = `translateX(${offsetX}px)`;
-            updateScaleByCenter();
-        }
+    function renderTrack(){
+        track.style.transform = `translateX(${offsetX}px)`;
+        updateScaleByCenter();
+    }
 
-        prevBtn.addEventListener('click',()=>{
-            offsetX += baseItemWidth;
-            renderTrack();
-        });
-        nextBtn.addEventListener('click',()=>{
-            offsetX -= baseItemWidth;
-            renderTrack();
-        });
-
+    // 切换到上一张/下一张（封装函数，按钮和拖拽共用）
+    function slidePrev(){
+        offsetX += baseItemWidth;
         renderTrack();
-        window.addEventListener('resize', renderTrack);
-    })
+    }
+    function slideNext(){
+        offsetX -= baseItemWidth;
+        renderTrack();
+    }
+
+    prevBtn.addEventListener('click', slidePrev);
+    nextBtn.addEventListener('click', slideNext);
+
+    renderTrack();
+    window.addEventListener('resize', renderTrack);
+
+    // ===================== 拖拽逻辑 =====================
+    // 拖动开始
+    function dragStart(clientX) {
+        isDragging = true;
+        startX = clientX;
+        dragStartOffset = offsetX;
+        moveDistance = 0;
+        track.style.transition = 'none'; // 拖动时关闭缓动，跟随鼠标
+    }
+    // 拖动进行中
+    function dragMove(clientX) {
+        if (!isDragging) return;
+        const deltaX = clientX - startX;
+        moveDistance = Math.abs(deltaX);
+        offsetX = dragStartOffset + deltaX;
+        renderTrack();
+    }
+    // 拖动结束，松手吸附
+    function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        track.style.transition = ''; // 恢复css动画缓动
+
+        // 阈值：拖动超过 40px 判定有效滑动
+        const threshold = 40;
+        if (moveDistance > threshold) {
+            const deltaTotal = offsetX - dragStartOffset;
+            if (deltaTotal > 0) {
+                slidePrev();
+            } else {
+                slideNext();
+            }
+        } else {
+            // 拖动距离太短，回弹原位
+            offsetX = dragStartOffset;
+            renderTrack();
+        }
+    }
+
+    // 鼠标事件
+    track.addEventListener('mousedown', e => dragStart(e.clientX));
+    document.addEventListener('mousemove', e => dragMove(e.clientX));
+    document.addEventListener('mouseup', dragEnd);
+
+    // 移动端触摸事件
+    track.addEventListener('touchstart', e => {
+        dragStart(e.touches[0].clientX);
+        e.preventDefault();
+    }, { passive:false });
+    document.addEventListener('touchmove', e => {
+        dragMove(e.touches[0].clientX);
+    }, { passive:false });
+    document.addEventListener('touchend', dragEnd);
+
+    // 鼠标样式优化
+    track.style.cursor = 'grab';
+    track.addEventListener('mousedown',()=> track.style.cursor='grabbing');
+    document.addEventListener('mouseup',()=> track.style.cursor='grab');
+})
 
     // ========= 订阅邮箱【正式可用】 =========
     const sendBtn = document.querySelector('.send-btn');
