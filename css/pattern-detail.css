@@ -92,8 +92,8 @@ a {
 .bg-pattern-bg {
     background-image: url("../assets/images/bg/gold_pattern_bg.png");
     background-size: 100% auto;
-    background-position: center -5px;
-    background-repeat: no-repeat;
+    background-position: center 50px;
+    /* background-repeat: no-repeat; */
 }
 
 .detail-inner {
