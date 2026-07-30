@@ -28,10 +28,10 @@ body {
     overflow:visible;
 }
 
-img {
-    display: block;
-    max-width: 100%;
-    object-fit: cover;
+.pattern-preview-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
 a {
@@ -75,7 +75,7 @@ a {
 
 .detail-wrap {
     position:relative;
-    padding:48px 32px 80px;
+    padding:60px 32px 80px;
     min-height:calc(100vh - 48px);
     overflow:visible;
     background:#0a0a0a;
@@ -144,39 +144,49 @@ a {
     color: white;
 }
 
-.detail-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 80px;
+.detail-layout{
+    display:grid;
+    grid-template-columns:575px 1fr;
+    gap:60px;
+    align-items:flex-start;
 }
 
-.left-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+.left-panel{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+
+    /* transform: scale(0.9);
+    transform-origin: top left; */
 }
 
-.pattern-preview-box {
-    border: 2px solid #2254a8;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #111;
-    
+.pattern-preview-box{
+    width:575px;
+    height:342px;
+
+    border:2px solid #2254a8;
+    border-radius:16px;
+    overflow:hidden;
+
+    background:#111;
 }
 
 .pattern-label-info h3 {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     margin: 0 0 -5px;
 }
 
-.pattern-label-info p {
-    color: #f9f9f9;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.13;
-    width: 200px;
-    word-break: break-all;
+.pattern-label-info{
+    width:100%;
+}
+
+.pattern-label-info p{
+    width:100%;
+    max-width:560px;
+
+    font-size:13px;
+    line-height:1.8;
 }
 
 .tag-type {
@@ -234,10 +244,11 @@ a {
     height: 45px;
 }
 
-.right-panel {
-    min-height: 520px;
-    min-width: 0;
-    overflow: hidden;
+.right-panel{
+
+    padding-top:10px;
+
+    min-width:0;
 }
 
 .tab-content-item {
@@ -259,7 +270,7 @@ a {
 
 .thumb-row {
     display: flex;
-    gap: 50px;
+    gap: 30px;
 }
 
 .thumb-row img {
@@ -272,8 +283,8 @@ a {
     display: flex;
     align-items: flex-start;
     gap: 16px;
-    padding: 30px 30px;
-    height: 130px;
+    padding: 20px 20px;
+    min-height: 100px;
     border: none;
     position: relative;
     cursor: pointer;
@@ -338,13 +349,13 @@ a {
 
 .color-row {
     display: flex;
-    gap: 70px;
+    gap: 44px;
     flex-wrap: nowrap;
 }
 
 .color-block {
     width: 90px;
-    height: 40px;
+    height: 50px;
     margin-bottom: 6px;
 }
 
@@ -352,35 +363,22 @@ a {
     text-align: center;
 }
 
-/* 所有样式 */
+/* @media (max-width:760px){
 
-
-/* @media(max-width:760px){
-
-    html{
-        width:1760px;
-        overflow-x:auto;
-    }
-
+    html,
     body{
-        width:1760px;
-        min-width:1760px;
-        overflow-x:auto;
+        overflow-x:auto !important;
     }
 
-
-    .wrap-container{
-        width:1760px;
-        max-width:none;
-        overflow:visible;
+    main{
+        overflow:visible !important;
     }
 
     .detail-wrap{
-        width:1760px;
+        overflow:visible !important;
     }
 
-    .detail-inner{
-        width:1760px;
+    .wrap-container{
+        overflow:visible !important;
     }
-
 } */
