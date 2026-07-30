@@ -593,11 +593,6 @@ a {
 
 }
 
-.info-item:hover {
-    background: rgba(34, 84, 168, 0.35);
-    box-shadow: 0 0 25px rgba(34, 84, 168, 0.7);
-}
-
 
 .info-item img {
     width: 80px;
