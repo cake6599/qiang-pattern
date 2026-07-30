@@ -189,7 +189,7 @@ function buildRightHtml() {
                 .join("")}
         </div>
 
-        <div class="line-blue"></div>
+        <div class="line-blue line-second"></div>
     </div>
     `;
 
