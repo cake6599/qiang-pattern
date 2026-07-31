@@ -258,7 +258,7 @@ a {
     /* height: 250px; */
     aspect-ratio: 425 / 575; /* 强制比例575:342 */
     border-radius: 10px;
-    box-shadow: 0 8px 25px 0px rgba(38, 52, 50, 0.48);
+    box-shadow: 0 15px 10px 0px rgba(38, 52, 50, 0.58);
     overflow: hidden;
     transition: transform 0.28s ease;
     z-index: 1;
