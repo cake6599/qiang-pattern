@@ -301,9 +301,9 @@ const playBtn = document.getElementById("audioPlayBtn");
 
 let playing = false;
 
-playBtn.onclick = async () => {
+playBtn.onclick = () => {
     if (!playing) {
-        await window.playPattern(params.sound);
+        window.playPattern(params.sound);   // 去掉 async 和 await
         playBtn.innerHTML = "Ⅱ";
         playing = true;
     } else {

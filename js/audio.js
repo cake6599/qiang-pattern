@@ -79,7 +79,7 @@ function drawWaveform(){
     canvasCtx.strokeStyle="#ffffff";
     canvasCtx.lineWidth=2;
 
-    const barCount=30;
+    const barCount=15;
     const barSpace=w/barCount;
 
     for(let i=0;i<barCount;i++){
@@ -148,7 +148,7 @@ async function playPattern(type){
     const attack = cfg.attack;
     const decay = cfg.decay;
     gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.linearRampToValueAtTime(0.35, now + attack);
+    gain.gain.linearRampToValueAtTime(0.7, now + attack);
     gain.gain.linearRampToValueAtTime(0, now + attack + decay+0.5);
 
     osc.connect(gain);
