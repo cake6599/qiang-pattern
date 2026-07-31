@@ -16,6 +16,7 @@ async function initAudioCtx() {
         analyser = audioCtx.createAnalyser();
 
         analyser.fftSize = 256;
+        analyser.smoothingTimeConstant = 0.65; 
 
     }
 
@@ -61,95 +62,53 @@ function initCanvas() {
 }
 
 // 绘制波形
-// 绘制竖线音频波形
-// 绘制动态音频条
 function drawWaveform(){
-
     if(!isDrawing || !canvas || !canvasCtx || !analyser)
         return;
 
-
     animationId=requestAnimationFrame(drawWaveform);
-
-
-
-    const bufferLen=analyser.frequencyBinCount;
-
+    const bufferLen=analyser.fftSize;
     const dataArr=new Uint8Array(bufferLen);
-
-
-    analyser.getByteFrequencyData(dataArr);
-
-
+    analyser.getByteTimeDomainData(dataArr);
 
     const rect=canvas.getBoundingClientRect();
-
     const w=rect.width || 120;
-
     const h=rect.height || 45;
 
-
-
     canvasCtx.clearRect(0,0,w,h);
-
-
-
     canvasCtx.strokeStyle="#ffffff";
-
     canvasCtx.lineWidth=2;
 
-
-
     const barCount=30;
-
     const barSpace=w/barCount;
 
-
-
     for(let i=0;i<barCount;i++){
+        const index = Math.floor(i / barCount * bufferLen);
+        let value=dataArr[index];
+        // 原始范围：0~255，中线128
+        const offset = (value - 128)/128;
+        // 【放大系数】调整这里！数值越大线条越长，推荐 1.3 ~ 2.0
+        const scale = 1.6;
+        let height = Math.abs(offset) * h * scale;
 
-
-        //直接取频段，不平均
-        let value=dataArr[i*3];
-
-
-
-        //增强变化
-        let height=(value/255)*h;
-
-
-
-        //最低高度
-        height=Math.max(height,6);
-
-
-
+        // 限制最高不要超出画布，最低保持6（一直看得见）
+        height = Math.max(6, Math.min(height, h));
+        
         let x=i*barSpace;
-
-
-
         canvasCtx.beginPath();
-
-
         canvasCtx.moveTo(
             x,
             h/2-height/2
         );
-
-
         canvasCtx.lineTo(
             x,
             h/2+height/2
         );
-
-
         canvasCtx.stroke();
-
-
     }
-
 }
 
+// 核心播放函数
 // 核心播放函数
 async function playPattern(type){
     await initAudioCtx();
@@ -163,37 +122,17 @@ async function playPattern(type){
 
     // 新声音停止旧声音
     if(currentNodes){
-
         try{
-
             currentNodes.osc.stop();
-
         }catch(e){}
-
         currentNodes.gain.disconnect();
-
         currentNodes.osc.disconnect();
-
     }
 
-    // =====================16组完整音效配置=====================
     const soundConfig = {
-        "花卉纹": { freq: 260, wave: "sine", attack:0.20, decay:0.50 },
-        "卷草藤蔓纹": { freq: 330, wave: "sine", attack:0.32, decay:0.62 },
-        "果蔬谷穗纹": { freq: 210, wave: "triangle", attack:0.16, decay:0.42 },
-        "羊角图腾纹": { freq: 180, wave: "triangle", attack:0.25, decay:0.60 },
-        "灵猴纹": { freq: 420, wave: "sine", attack:0.12, decay:0.36 },
-        "瑞兽纹": { freq: 150, wave: "triangle", attack:0.22, decay:0.58 },
-        "飞鸟纹": { freq: 820, wave: "sine", attack:0.08, decay:0.32 },
-        "蝴蝶蛾纹": { freq: 750, wave: "sine", attack:0.10, decay:0.34 },
-        "鲤鱼纹": { freq: 380, wave: "sine", attack:0.30, decay:0.52 },
-        "蝙蝠纹": { freq: 680, wave: "sawtooth", attack:0.11, decay:0.33 },
-        "基础直线几何纹": { freq: 740, wave: "square", attack:0.02, decay:0.22 },
-        "方形菱形几何纹": { freq: 660, wave: "square", attack:0.03, decay:0.26 },
-        "阶梯复合几何纹": { freq: 570, wave: "square", attack:0.04, decay:0.30 },
-        "火焰天象纹": { freq: 920, wave: "sawtooth", attack:0.05, decay:0.40 },
-        "流云天象纹": { freq: 490, wave: "sine", attack:0.40, decay:0.70 },
-        "山峦水波纹": { freq: 350, wave: "triangle", attack:0.33, decay:0.64 }
+        "植物纹": { freq: 260, wave: "sine", attack:0.20, decay:0.62 },
+        "动物纹": { freq: 180, wave: "triangle", attack:0.12, decay:0.58 },
+        "几何纹": { freq: 740, wave: "square", attack:0.02, decay:0.30 }
     };
     const cfg = soundConfig[type];
     console.log("播放音效类型：", type, "是否匹配成功：", !!cfg);
@@ -204,11 +143,7 @@ async function playPattern(type){
 
     osc.type = cfg.wave;
     osc.frequency.value = cfg.freq;
-    const osc2 = audioCtx.createOscillator();
-
-    osc2.type = cfg.wave;
-
-    osc2.frequency.value = cfg.freq * 2;
+    
     const now = audioCtx.currentTime;
     const attack = cfg.attack;
     const decay = cfg.decay;
@@ -217,20 +152,14 @@ async function playPattern(type){
     gain.gain.linearRampToValueAtTime(0, now + attack + decay+0.5);
 
     osc.connect(gain);
-    osc2.connect(gain);
     gain.connect(analyser);
-
     gain.connect(audioCtx.destination);
-    console.log(audioCtx.state);
+    
     osc.start(now);
-    osc2.start(now);
     osc.stop(now + attack + decay + 0.5);
     currentNodes = {
-
         osc,
-
         gain
-
     };
 
     // 抛出事件

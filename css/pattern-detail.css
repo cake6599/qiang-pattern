@@ -28,11 +28,7 @@ body {
     overflow:visible;
 }
 
-.pattern-preview-box img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
+
 
 a {
     color: inherit;
@@ -157,18 +153,24 @@ a {
     gap:24px;
 
     transform: scale(0.98);
-    /* transform-origin: top left; */
+
 }
 
 .pattern-preview-box{
     width:575px;
     height:342px;
-
-    border:2px solid #2254a8;
     border-radius:16px;
     overflow:hidden;
-
-    background:#111;
+    background:#0a0a0a;
+}
+.pattern-preview-box img{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height:auto;
+    display:block;
+    margin: 0 auto;
+    transform: rotate(90deg) scale(1.68);
 }
 
 .pattern-label-info h3 {
@@ -282,13 +284,6 @@ a {
     border-radius: 50%;
 }
 
-/* =====================================
-   右侧内容区域
-   固定横线 + 三块信息
-===================================== */
-
-
-/* 右侧整体 */
 
 .right-panel{
 
@@ -302,7 +297,7 @@ a {
 
 
 
-/* 蓝色固定横线 */
+
 .line-blue{
     width:100%;
     height:3px;
@@ -314,12 +309,12 @@ a {
 }
 
 .line-blue.line-second{
-    margin-top: 65px !important;
+    margin-top: 30px !important;
 }
 
 .tab-content-item[data-content="all"] > .line-blue:first-of-type {
     margin-bottom: 30px !important;
-    margin-top: -10px !important;
+    margin-top: -15px !important;
 }
 
 .tab-content-item[data-content="all"] {
@@ -349,10 +344,6 @@ a {
 }
 
 
-
-/* =========================
-   三个信息块
-========================= */
 
 
 .info-item{
@@ -401,7 +392,7 @@ a {
 
 
 
-/* 缩略图 */
+
 
 
 .info-item img{
@@ -423,7 +414,7 @@ a {
 
 
 
-/* 文字区域 */
+
 
 
 .info-item div{
@@ -474,9 +465,6 @@ a {
 
 
 
-/* =========================
-   点击后的蓝色高亮
-========================= */
 
 
 .info-item.active-highlight{
@@ -503,8 +491,6 @@ a {
 
 
 
-/* 防止放大碰到横线 */
-
 
 .info-item.active-highlight::before{
 
@@ -522,9 +508,6 @@ a {
 
 
 
-/* =========================
-   三个区域间距固定
-========================= */
 
 
 .info-item + .info-item{
@@ -537,7 +520,7 @@ a {
 
 
 
-/* 防止缩放影响布局 */
+
 
 
 .info-wrap{
@@ -549,10 +532,6 @@ a {
 }
 
 
-
-/* =================================
-   全部/相关信息页面内容
-================================= */
 
 
 .tab-content-item{
@@ -622,13 +601,14 @@ a {
 
 .text-content p {
     font-size: 17px;
-    line-height: 1.8;
+    line-height: 1.5;
 }
 
 .color-row {
     display: flex;
     gap: 44px;
     flex-wrap: nowrap;
+    margin-top: 38px;
 }
 
 .color-block {
@@ -641,22 +621,3 @@ a {
     text-align: center;
 }
 
-/* @media (max-width:760px){
-
-    html,
-    body{
-        overflow-x:auto !important;
-    }
-
-    main{
-        overflow:visible !important;
-    }
-
-    .detail-wrap{
-        overflow:visible !important;
-    }
-
-    .wrap-container{
-        overflow:visible !important;
-    }
-} */

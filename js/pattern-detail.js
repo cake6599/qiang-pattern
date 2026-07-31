@@ -59,7 +59,18 @@ function extractColors(src) {
 
             let ctx = canvas.getContext("2d");
             ctx.filter = "saturate(150%) contrast(120%)";
-            ctx.drawImage(img, 0, 0, 400, 400);
+            const crop =10;
+            ctx.drawImage(
+                img,
+                crop,
+                crop,
+                img.width - crop * 2,
+                img.height - crop * 2,
+                0,
+                0,
+                400,
+                400
+            );
 
             let data = ctx.getImageData(0, 0, 400, 400).data;
 
@@ -76,9 +87,9 @@ function extractColors(src) {
                 let s = max === 0 ? 0 : (max - min) / max;
                 let v = max / 255;
 
-                if (v < 0.15) continue;
-                if (v > 0.95 && s < 0.1) continue;
-                if (s < 0.25) continue;
+                // if (v < 0.15) continue;
+                // if (v > 0.95 && s < 0.1) continue;
+                // if (s < 0.25) continue;
 
                 colors.push([r, g, b]);
             }

@@ -46,23 +46,35 @@ document.addEventListener('DOMContentLoaded', function(){
                     closestIdx = idx;
                 }
             })
-
+            
             items.forEach((item, idx)=>{
-                item.classList.remove('level-active','level-near','level-far1','level-far2');
-                const dist = Math.abs(idx - closestIdx);
-                const zBase = 10 - dist;
-                item.style.zIndex = zBase;
+                item.classList.remove(
+                    'level-active',
+                    'level-near',
+                    'level-far1',
+                    'level-far2',
+                    'level-hidden'
+                );
 
-                if(dist === 0){
-                    item.classList.add('level-active');
-                }else if(dist === 1){
-                    item.classList.add('level-near');
-                }else if(dist === 2){
-                    item.classList.add('level-far1');
-                }else if(dist === 3){
-                    item.classList.add('level-far2');
+                const dist = Math.abs(idx - closestIdx);
+
+                if(dist > 3){
+                    item.classList.add("level-hidden");
+                    return;
                 }
-            })
+
+                item.style.zIndex = 10 - dist;
+
+                if(dist===0){
+                    item.classList.add("level-active");
+                }else if(dist===1){
+                    item.classList.add("level-near");
+                }else if(dist===2){
+                    item.classList.add("level-far1");
+                }else{
+                    item.classList.add("level-far2");
+                }
+            });
         }
 
         function renderTrack(){
