@@ -88,7 +88,7 @@ a {
 .bg-pattern-bg {
     background-image: url("../assets/images/bg/gold_pattern_bg.png");
     background-size: 100% auto;
-    background-position: center 10px;
+    background-position: center -30px;
     background-repeat: no-repeat;
 }
 
@@ -174,7 +174,7 @@ a {
 }
 
 .pattern-label-info h3 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     margin: 0 0 -5px;
 }
@@ -187,16 +187,16 @@ a {
     width:100%;
     max-width:560px;
 
-    font-size:13px;
+    font-size:15px;
     line-height:1.8;
 }
 
 .tag-type {
     display: inline-block;
     background: #174b91;
-    padding: 4px 15px;
+    padding: 5px 18px;
     border-radius: 24px;
-    margin-top: -12px;
+    margin-top: -15px;
 }
 
 .audio-player {
@@ -218,14 +218,11 @@ a {
     flex: 1;
 }
 
-.wave-canvas {
-    width: 90px;
-    height: 35px;
-}
+
 
 .play-btn{
-    width:48px;
-    height:48px;
+    width:60px;
+    height:60px;
     border-radius:50%;
     font-weight: 700px;
     border:2px solid #fff;
@@ -249,13 +246,11 @@ a {
     margin-left:6px;
 }
 
-.play-btn:hover {
-    background: #2254a8;
-}
+
 
 .wave-canvas {
     width: 120px;
-    height: 45px;
+    height: 50px;
 }
 
 
@@ -302,18 +297,18 @@ a {
     width:100%;
     height:3px;
     background:#2254a8;
-    margin:6px 0;
+    margin:10px 0;
     flex-shrink:0;
     position:relative;
     z-index:1;
 }
 
 .line-blue.line-second{
-    margin-top: 30px !important;
+    margin-top: 10px !important;
 }
 
 .tab-content-item[data-content="all"] > .line-blue:first-of-type {
-    margin-bottom: 30px !important;
+    margin-bottom: 10px !important;
     margin-top: -15px !important;
 }
 
@@ -430,10 +425,10 @@ a {
 .info-item h4{
 
 
-    margin:0 0 10px;
+    margin:0 0 5px;
 
 
-    font-size:30px;
+    font-size:20px;
 
 
     color:#ffffff;
@@ -452,10 +447,10 @@ a {
     margin:0;
 
 
-    font-size:18px;
+    font-size:15px;
 
 
-    line-height:1.8;
+    line-height:1.25;
 
 
     color:#ffffff;
@@ -579,16 +574,7 @@ a {
     border-radius: 50%;
 }
 
-.info-item h4 {
-    margin: 0 0 8px;
-    font-size: 24px;
-}
 
-.info-item p {
-    font-size: 17px;
-    line-height: 1.7;
-    margin: 0;
-}
 
 .info-all-mode {
     border-top: 3px solid #2254a8;
@@ -608,7 +594,7 @@ a {
     display: flex;
     gap: 44px;
     flex-wrap: nowrap;
-    margin-top: 38px;
+    margin-top: 25px;
 }
 
 .color-block {

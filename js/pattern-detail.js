@@ -228,7 +228,7 @@ function buildRightHtml() {
             <div class="info-item" data-target="story">
                 <img src="${fixedThumb3}">
                 <div>
-                    <h4>历史故事</h4>
+                    <h4>应用与历史</h4>
                     <p>${params.storyText || ""}</p>
                 </div>
             </div>
