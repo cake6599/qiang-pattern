@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>技术架构图</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#f5f7fa;
+    font-family:"Microsoft YaHei",sans-serif;
+}
+
+.container{
+    width:1200px;
+    margin:30px auto;
+}
+
+.title{
+    text-align:center;
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:35px;
+    color:#333;
+}
+
+.box{
+    width:320px;
+    margin:0 auto;
+    background:#ffffff;
+    border:2px solid #2d74da;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:#2d74da;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.arrow{
+    width:4px;
+    height:35px;
+    background:#666;
+    margin:0 auto;
+    position:relative;
+}
+
+.arrow:after{
+    content:"";
+    position:absolute;
+    bottom:-10px;
+    left:-6px;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-top:12px solid #666;
+}
+
+.main{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:20px;
+}
+
+.module{
+    width:260px;
+    background:white;
+    border:2px solid #3a8ee6;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.module h3{
+    background:#3a8ee6;
+    color:white;
+    padding:12px;
+    text-align:center;
+    font-size:22px;
+}
+
+.module ul{
+    list-style:none;
+    padding:20px;
+}
+
+.module li{
+    margin:14px 0;
+    font-size:18px;
+    color:#444;
+}
+
+.bottom{
+    width:960px;
+    margin:35px auto;
+    display:flex;
+    justify-content:space-between;
+}
+
+.small{
+    width:220px;
+    background:white;
+    border:2px solid #66bb6a;
+    border-radius:10px;
+    text-align:center;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.small h4{
+    color:#2e7d32;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.small p{
+    font-size:16px;
+    color:#555;
+    line-height:1.8;
+}
+
+.footer{
+    width:420px;
+    margin:40px auto;
+    background:#fff;
+    border:2px solid #ff9800;
+    border-radius:10px;
+    padding:18px;
+    text-align:center;
+    font-size:22px;
+    color:#ef6c00;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.caption{
+    margin-top:25px;
+    text-align:center;
+    font-size:20px;
+    color:#555;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="title">
+羌族纹样数字展示系统技术架构
+</div>
+
+<div class="box">
+用户（PC / 移动端浏览器）
+</div>
+
+<div class="arrow"></div>
+
+<div class="box">
+GitHub Pages 静态部署
+</div>
+
+<div class="arrow"></div>
+
+<div class="box">
+HTML5 + CSS3 + JavaScript（ES6）
+</div>
+
+<div class="arrow"></div>
+
+<div class="main">
+
+<div class="module">
+<h3>首页展示模块</h3>
+<ul>
+<li>● 纹样轮播展示</li>
+<li>● 分类浏览</li>
+<li>● 点击跳转</li>
+<li>● 拖拽滑动</li>
+</ul>
+</div>
+
+<div class="module">
+<h3>纹样详情模块</h3>
+<ul>
+<li>● URL参数解析</li>
+<li>● 动态加载数据</li>
+<li>● 标签切换</li>
+<li>● 信息展示</li>
+</ul>
+</div>
+
+<div class="module">
+<h3>视听交互模块</h3>
+<ul>
+<li>● Web Audio API</li>
+<li>● 音效生成</li>
+<li>● Canvas波形</li>
+<li>● 动态反馈</li>
+</ul>
+</div>
+
+</div>
+
+<div class="bottom">
+
+<div class="small">
+<h4>Canvas</h4>
+<p>
+颜色提取<br>
+波形绘制
+</p>
+</div>
+
+<div class="small">
+<h4>CSS3</h4>
+<p>
+Transition<br>
+Transform<br>
+动画效果
+</p>
+</div>
+
+<div class="small">
+<h4>静态资源</h4>
+<p>
+纹样图片<br>
+JSON数据<br>
+CSS / JS
+</p>
+</div>
+
+</div>
+
+<div class="footer">
+页面交互与展示
+</div>
+
+<div class="caption">
+图4-1 羌族纹样数字展示系统技术架构图
+</div>
+
+</div>
+
+</body>
+</html>
