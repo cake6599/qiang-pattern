@@ -207,7 +207,7 @@ Canvas 获取音频数据
 项目部署到 GitHub Pages 后，可以通过：
 
 ```text
-https://用户名.github.io/仓库名/
+https://cake6599.github.io/qiang-pattern/
 ```
 
 直接访问网站。
